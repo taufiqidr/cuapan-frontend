@@ -4,18 +4,20 @@ import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave } from "@fortawesome/free-solid-svg-icons"
 import { ROLES } from "../../config/roles"
+import useTitle from "../../hooks/useTitle"
 
 const USER_REGEX = /^[A-z]{3,20}$/
 const PWD_REGEX = /^[A-z0-9!@#$%]{4,12}$/
 
 const NewUserForm = () => {
+    useTitle('techNotes: New User')
+
     const [addNewUser, {
         isLoading,
         isSuccess,
         isError,
         error
     }] = useAddNewUserMutation()
-
 
     const navigate = useNavigate()
 
@@ -77,6 +79,7 @@ const NewUserForm = () => {
     const validPwdClass = !validPassword ? 'form__input--incomplete' : ''
     const validRolesClass = !Boolean(roles.length) ? 'form__input--incomplete' : ''
 
+
     const content = (
         <>
             <p className={errClass}>{error?.data?.message}</p>
@@ -137,5 +140,4 @@ const NewUserForm = () => {
 
     return content
 }
-
 export default NewUserForm
