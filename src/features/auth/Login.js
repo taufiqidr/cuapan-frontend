@@ -1,11 +1,13 @@
 import { useRef, useState, useEffect } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setCredentials } from './authSlice'
 import { useLoginMutation } from './authApiSlice'
 import usePersist from '../../hooks/usePersist'
 import useTitle from '../../hooks/useTitle'
 import PulseLoader from 'react-spinners/PulseLoader'
+import PublicHeader from '../../components/PublicHeader'
+import PublicFooter from '../../components/PublicFooter'
 
 const Login = () => {
   useTitle('Employee Login')
@@ -62,53 +64,55 @@ const Login = () => {
   if (isLoading) return <PulseLoader color={"#FFF"} />
 
   const content = (
-    <section className="public">
-      <header>
-        <h1>Employee Login</h1>
-      </header>
-      <main className="login">
+
+    <section>
+      <PublicHeader />
+      <main className="form-signin w-100 m-auto">
         <p ref={errRef} className={errClass} aria-live="assertive">{errMsg}</p>
 
-        <form className="form" onSubmit={handleSubmit}>
-          <label htmlFor="username">Username:</label>
-          <input
-            className="form__input"
-            type="text"
-            id="username"
-            ref={userRef}
-            value={username}
-            onChange={handleUserInput}
-            autoComplete="off"
-            required
-          />
+        <form onSubmit={handleSubmit}>
+          <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
+          <div className="form-floating">
 
-          <label htmlFor="password">Password:</label>
-          <input
-            className="form__input"
-            type="password"
-            id="password"
-            onChange={handlePwdInput}
-            value={password}
-            required
-          />
-          <button className="form__submit-button">Sign In</button>
-
-
-          <label htmlFor="persist" className="form__persist">
             <input
-              type="checkbox"
-              className="form__checkbox"
-              id="persist"
-              onChange={handleToggle}
-              checked={persist}
+              className="form-control"
+              type="text"
+              id="username"
+              ref={userRef}
+              value={username}
+              onChange={handleUserInput}
+              autoComplete="off"
+              required
             />
-            Trust This Device
-          </label>
+            <label htmlFor="username">Username:</label>
+          </div>
+          <div className="form-floating">
+            <input
+              className="form-control"
+              type="password"
+              id="password"
+              onChange={handlePwdInput}
+              value={password}
+              required
+            />
+            <label htmlFor="password">Password:</label>
+          </div>
+          <button className="w-100 btn btn-lg btn-primary">Sign In</button>
+
+          <div className="checkbox mb-3">
+            <label htmlFor="persist">
+              <input
+                type="checkbox"
+                id="persist"
+                onChange={handleToggle}
+                checked={persist}
+              />
+              Trust This Device
+            </label>
+          </div>
         </form>
       </main>
-      <footer>
-        <Link to="/">Back to Home</Link>
-      </footer>
+      <PublicFooter />
     </section>
   )
 

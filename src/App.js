@@ -15,9 +15,10 @@ import PersistLogin from './features/auth/PersistLogin'
 import RequireAuth from './features/auth/RequireAuth'
 import { ROLES } from './config/roles'
 import useTitle from './hooks/useTitle';
+import Register from './features/auth/Register';
 
 function App() {
-  useTitle('Dan D. Repairs')
+  useTitle('taufiqidr')
 
   return (
     <Routes>
@@ -25,9 +26,10 @@ function App() {
         {/* public routes */}
         <Route index element={<Public />} />
         <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
 
         {/* Protected Routes */}
-        <Route element={<PersistLogin />}>
+        < Route element={<PersistLogin />}>
           <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>
             <Route element={<Prefetch />}>
               <Route path="dash" element={<DashLayout />}>
