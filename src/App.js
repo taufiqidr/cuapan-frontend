@@ -3,7 +3,6 @@ import Layout from './components/Layout'
 import Public from './components/Public'
 import Login from './features/auth/Login';
 import DashLayout from './components/DashLayout'
-import Welcome from './features/auth/Welcome'
 import StatusesList from './features/statuses/StatusesList'
 import UsersList from './features/users/UsersList'
 import EditUser from './features/users/EditUser'
@@ -16,6 +15,8 @@ import RequireAuth from './features/auth/RequireAuth'
 import { ROLES } from './config/roles'
 import useTitle from './hooks/useTitle';
 import Register from './features/auth/Register';
+import Home from './features/home/Home';
+import StatusPage from './features/home/StatusPage';
 
 function App() {
   useTitle('Cuapan')
@@ -32,10 +33,11 @@ function App() {
         < Route element={<PersistLogin />}>
           <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>
             <Route element={<Prefetch />}>
-              <Route path="dash" element={<DashLayout />}>
+              <Route path="home" element={<DashLayout />}>
 
-                <Route index element={<Welcome />} />
-
+                <Route index element={<Home />} />
+                <Route path=":id" element={<StatusPage />} />
+                {/* add something */}
                 <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
                   <Route path="users">
                     <Route index element={<UsersList />} />

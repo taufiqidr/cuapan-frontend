@@ -2,12 +2,12 @@
 import { useGetStatusesQuery } from "../statuses/statusesApiSlice"
 import useAuth from '../../hooks/useAuth'
 import useTitle from '../../hooks/useTitle'
-import PulseLoader from 'react-spinners/PulseLoader'
 import Status from "./Status"
-import './welcome.css'
+import './home.css'
 import NewStatus from "./NewStatus"
+import Loading from "../../components/Loading"
 
-const Welcome = () => {
+const Home = () => {
   // const date = new Date()
   // const today = new Intl.DateTimeFormat('en-US', { dateStyle: 'full', timeStyle: 'long' }).format(date)
   const { username } = useAuth()
@@ -26,20 +26,10 @@ const Welcome = () => {
   })
 
   let content
+  let load
 
-  if (isLoading) content = (
-    <div className="d-flex flex-column flex-shrink-0 feed bg-dark" >
-      <div className="d-flex flex-shrink-0 p-3 link-dark border-bottom border-secondary">
-        <h3 className="text-center text-light">Home</h3>
-      </div>
-      <div className="m-auto">
-        <PulseLoader color={"#FFF"} />
-      </div>
-    </div>
-  )
-  if (isError) {
-    content = <p className="errmsg">{error?.data?.message}</p>
-  }
+  if (isLoading) load = <Loading />
+  if (isError) load = <p className="errmsg">{error?.data?.message}</p>
 
   if (isSuccess) {
     const { ids } = statuses
@@ -55,6 +45,7 @@ const Welcome = () => {
           <h3 className="text-center text-light">Home</h3>
         </div>
         <NewStatus />
+        {load}
         <div className="list-group list-group-flush scrollarea">
           {tableContent}
         </div>
@@ -64,4 +55,4 @@ const Welcome = () => {
 
   return content
 }
-export default Welcome
+export default Home

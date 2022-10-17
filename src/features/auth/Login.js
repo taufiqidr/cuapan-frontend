@@ -41,7 +41,7 @@ const Login = () => {
       dispatch(setCredentials({ accessToken }))
       setUsername('')
       setPassword('')
-      navigate('/dash')
+      navigate('/home')
     } catch (err) {
       if (!err.status) {
         setErrMsg('No Server Response');
@@ -67,7 +67,7 @@ const Login = () => {
   const content = (
     <>
       <PublicHeader />
-      <main className="form-signin m-auto">
+      <main className="form-signin m-auto mb-auto mt-auto">
         <p ref={errRef} className={errClass} aria-live="assertive">{errMsg}</p>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
