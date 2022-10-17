@@ -12,7 +12,7 @@ import { useSendLogoutMutation } from '../features/auth/authApiSlice'
 import useAuth from '../hooks/useAuth'
 import PulseLoader from 'react-spinners/PulseLoader'
 
-const DASH_REGEX = /^\/dash(\/)?$/
+// const DASH_REGEX = /^\/dash(\/)?$/
 const NOTES_REGEX = /^\/dash\/notes(\/)?$/
 const USERS_REGEX = /^\/dash\/users(\/)?$/
 
@@ -38,10 +38,10 @@ const DashHeader = () => {
   const onNotesClicked = () => navigate('/dash/notes')
   const onUsersClicked = () => navigate('/dash/users')
 
-  let dashClass = null
-  if (!DASH_REGEX.test(pathname) && !NOTES_REGEX.test(pathname) && !USERS_REGEX.test(pathname)) {
-    dashClass = "dash-header__container--small"
-  }
+  // let dashClass = null
+  // if (!DASH_REGEX.test(pathname) && !NOTES_REGEX.test(pathname) && !USERS_REGEX.test(pathname)) {
+  //   dashClass = "dash-header__container--small"
+  // }
 
   let newNoteButton = null
   if (NOTES_REGEX.test(pathname)) {
@@ -126,17 +126,22 @@ const DashHeader = () => {
 
   const content = (
     <>
-      <p className={errClass}>{error?.data?.message}</p>
-
-      <header className="dash-header">
-        <div className={`dash-header__container ${dashClass}`}>
-          <Link to="/dash">
-            <h1 className="dash-header__title">techNotes</h1>
-          </Link>
-          <nav className="dash-header__nav">
-            {buttonContent}
-          </nav>
-        </div>
+      <header className="p-1 text-bg-dark sticky-top">
+        <div className="container">
+          <p className={errClass}>{error?.data?.message}</p>
+          <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <Link to="/dash">
+              <div className="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                <i className="bi bi-house" width="40" height="32" role="img"></i>
+              </div>
+            </Link>
+            <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+              <li><Link to="/" className="nav-link px-2 text-secondary">Home</Link></li>
+            </ul>
+            <div className="text-end">
+              {buttonContent}
+            </div>
+          </div></div>
       </header>
     </>
   )

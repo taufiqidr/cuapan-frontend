@@ -11,12 +11,6 @@ const PWD_REGEX = /^[A-z0-9!@#$%]{4,12}$/
 
 const Register = () => {
     useTitle('Register new user')
-    const [register, {
-        isLoading,
-        isSuccess,
-        isError,
-        error
-    }] = useRegisterMutation()
 
     const navigate = useNavigate()
 
@@ -24,6 +18,13 @@ const Register = () => {
     const [validUsername, setValidUsername] = useState(false)
     const [password, setPassword] = useState('')
     const [validPassword, setValidPassword] = useState(false)
+
+    const [register, {
+        isLoading,
+        isSuccess,
+        isError,
+        error
+    }] = useRegisterMutation()
 
     useEffect(() => {
         setValidUsername(USER_REGEX.test(username))
@@ -43,11 +44,7 @@ const Register = () => {
 
     const onUsernameChanged = e => setUsername(e.target.value)
     const onPasswordChanged = e => setPassword(e.target.value)
-    const errClass = isError ? "errmsg" : "offscreen"
-
-
-
-
+    const errClass = isError ? "text-danger text-center" : "offscreen"
 
     const onSaveUserClicked = async (e) => {
         e.preventDefault()
@@ -57,21 +54,19 @@ const Register = () => {
     }
 
     const canSave = [validUsername, validPassword].every(Boolean) && !isLoading
-    const canSavebutton = canSave ? 'w-100 btn btn-lg btn-primary' : 'w-100 btn btn-lg btn-secondary'
-
+    const canSavebutton = canSave ? 'btn btn-lg btn-primary' : 'btn btn-lg btn-secondary'
 
     const content = (
-
-        <section>
+        <>
             <PublicHeader />
-            <main className="form-signin w-100 m-auto">
+            <main className="form-signin m-auto">
                 <p className={errClass}>{error?.data?.message}</p>
-
-
                 <form onSubmit={onSaveUserClicked}>
-                    <h1 className="h3 mb-3 fw-normal">Register a new account</h1>
-                    <div className="form-floating">
-
+                    <div className="mb-3">
+                        <h1 className="text-light">Register</h1>
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="username" className='form-label text-light'>Username:</label>
                         <input
                             className="form-control"
                             id="username"
@@ -79,26 +74,29 @@ const Register = () => {
                             type="text"
                             autoComplete="off"
                             value={username}
+                            placeholder='enter a new username'
                             onChange={onUsernameChanged}
                         />
-                        <label htmlFor="username">Username:</label>
                     </div>
-                    <div className="form-floating">
+                    <div className="mb-3">
+                        <label htmlFor="password" className='form-label text-light'>Password:</label>
                         <input
                             className="form-control"
                             id="password"
                             name="password"
                             type="password"
                             value={password}
+                            placeholder='enter a new password'
                             onChange={onPasswordChanged}
                         />
-                        <label htmlFor="password">Password:</label>
                     </div>
-                    <button className={canSavebutton} disabled={!canSave}>Sign Up</button>
+                    <div className="mb-3">
+                        <button className={canSavebutton} disabled={!canSave}>Sign Up</button>
+                    </div>
                 </form>
             </main>
             <PublicFooter />
-        </section>
+        </>
     )
     return content
 }

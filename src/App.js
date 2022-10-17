@@ -4,12 +4,12 @@ import Public from './components/Public'
 import Login from './features/auth/Login';
 import DashLayout from './components/DashLayout'
 import Welcome from './features/auth/Welcome'
-import NotesList from './features/notes/NotesList'
+import StatusesList from './features/statuses/StatusesList'
 import UsersList from './features/users/UsersList'
 import EditUser from './features/users/EditUser'
 import NewUserForm from './features/users/NewUserForm'
-import EditNote from './features/notes/EditNote'
-import NewNote from './features/notes/NewNote'
+import EditStatus from './features/statuses/EditStatus'
+import NewStatus from './features/statuses/NewStatus'
 import Prefetch from './features/auth/Prefetch'
 import PersistLogin from './features/auth/PersistLogin'
 import RequireAuth from './features/auth/RequireAuth'
@@ -18,7 +18,7 @@ import useTitle from './hooks/useTitle';
 import Register from './features/auth/Register';
 
 function App() {
-  useTitle('taufiqidr')
+  useTitle('Cuapan')
 
   return (
     <Routes>
@@ -36,7 +36,7 @@ function App() {
 
                 <Route index element={<Welcome />} />
 
-                <Route element={<RequireAuth allowedRoles={[ROLES.Manager, ROLES.Admin]} />}>
+                <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
                   <Route path="users">
                     <Route index element={<UsersList />} />
                     <Route path=":id" element={<EditUser />} />
@@ -44,10 +44,10 @@ function App() {
                   </Route>
                 </Route>
 
-                <Route path="notes">
-                  <Route index element={<NotesList />} />
-                  <Route path=":id" element={<EditNote />} />
-                  <Route path="new" element={<NewNote />} />
+                <Route path="statuses">
+                  <Route index element={<StatusesList />} />
+                  <Route path=":id" element={<EditStatus />} />
+                  <Route path="new" element={<NewStatus />} />
                 </Route>
 
               </Route>{/* End Dash */}

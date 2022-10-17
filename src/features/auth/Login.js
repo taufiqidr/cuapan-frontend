@@ -8,9 +8,10 @@ import useTitle from '../../hooks/useTitle'
 import PulseLoader from 'react-spinners/PulseLoader'
 import PublicHeader from '../../components/PublicHeader'
 import PublicFooter from '../../components/PublicFooter'
+import './login.css';
 
 const Login = () => {
-  useTitle('Employee Login')
+  useTitle('Login')
 
   const userRef = useRef()
   const errRef = useRef()
@@ -59,21 +60,21 @@ const Login = () => {
   const handlePwdInput = (e) => setPassword(e.target.value)
   const handleToggle = () => setPersist(prev => !prev)
 
-  const errClass = errMsg ? "errmsg" : "offscreen"
+  const errClass = errMsg ? "text-danger text-center" : "offscreen"
 
   if (isLoading) return <PulseLoader color={"#FFF"} />
 
   const content = (
-
-    <section>
+    <>
       <PublicHeader />
-      <main className="form-signin w-100 m-auto">
+      <main className="form-signin m-auto">
         <p ref={errRef} className={errClass} aria-live="assertive">{errMsg}</p>
-
         <form onSubmit={handleSubmit}>
-          <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
-          <div className="form-floating">
-
+          <div className="mb-3">
+            <h1 className="text-light">Sign in</h1>
+          </div>
+          <div className="mb-3">
+            <label htmlFor="username" className='form-label text-light'>Username:</label>
             <input
               className="form-control"
               type="text"
@@ -82,27 +83,30 @@ const Login = () => {
               value={username}
               onChange={handleUserInput}
               autoComplete="off"
+              placeholder='enter your username'
               required
             />
-            <label htmlFor="username">Username:</label>
           </div>
-          <div className="form-floating">
+          <div className="mb-3">
+            <label htmlFor="password" className='form-label text-light'>Password:</label>
             <input
               className="form-control"
               type="password"
               id="password"
               onChange={handlePwdInput}
               value={password}
+              placeholder='enter your password'
               required
             />
-            <label htmlFor="password">Password:</label>
           </div>
-          <button className="w-100 btn btn-lg btn-primary">Sign In</button>
-
+          <div className="mb-3">
+            <button className=" btn btn-lg btn-primary">Sign In</button>
+          </div>
           <div className="checkbox mb-3">
-            <label htmlFor="persist">
+            <label htmlFor="persist" className='form-label text-light'>
               <input
                 type="checkbox"
+                className='me-3'
                 id="persist"
                 onChange={handleToggle}
                 checked={persist}
@@ -113,7 +117,7 @@ const Login = () => {
         </form>
       </main>
       <PublicFooter />
-    </section>
+    </>
   )
 
   return content
