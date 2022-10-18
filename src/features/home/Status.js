@@ -16,8 +16,8 @@ const Status = ({ statusId }) => {
 
     if (status) {
         return (
-            <div className="bg-dark list-group-item list-group-item-action py-3 lh-sm border-top border-secondary">
-                <div className="d-flex w-100 align-items-center justify-content-between" onClick={handleView}>
+            <div className="bg-dark list-group-item list-group-item-action py-3 lh-sm border-top border-secondary" onClick={handleView}>
+                <div className="d-flex w-100 align-items-center justify-content-between" >
                     <strong className="mb-1 text-light">{status.username}</strong>
                     <small className='text-light'>
                         <TimeAgo timestamp={status.createdAt} />

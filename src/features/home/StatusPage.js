@@ -6,7 +6,7 @@ import { useGetStatusesQuery } from './statusesApiSlice'
 import StatusPageView from './StatusPageView'
 
 const StatusPage = () => {
-    useTitle('Edit Status')
+    useTitle('Status')
 
     const { id } = useParams()
 
