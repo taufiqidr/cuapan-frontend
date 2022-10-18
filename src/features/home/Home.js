@@ -33,9 +33,9 @@ const Home = () => {
 
   if (isSuccess) {
     const { ids } = statuses
-    let filteredIds = [...ids]
+    let Ids = [...ids]
 
-    const tableContent = ids?.length && filteredIds.map(statusId => <Status key={statusId} statusId={statusId} />).sort((a, b) => {
+    const tableContent = ids?.length && Ids.map(statusId => <Status key={statusId} statusId={statusId} username={statuses.entities[statusId].username} />).sort((a, b) => {
       return new Date(b.createdAt) - new Date(a.createdAt);
     }).reverse()
 

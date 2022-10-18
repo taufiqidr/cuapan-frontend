@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import './sidebar.css'
 import useAuth from "../hooks/useAuth"
 import { useSendLogoutMutation } from '../features/auth/authApiSlice'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 
 const Sidebar = () => {
@@ -23,20 +23,23 @@ const Sidebar = () => {
     return (
         <div className="d-flex flex-column flex-shrink-0 main-bar border-end border-secondary">
             <div className="d-flex p-1 border-bottom border-secondary ">
-
                 <p className="h3 text-center text-light">Cuapan</p>
             </div>
             <div className="list-group list-group-flush bg-dark">
                 <ul className="nav nav-pills flex-column">
                     <li className="nav-item mb-2">
-                        <a href="true" className="nav-link text-light" aria-current="page">
-                            <h5><i className='bi bi-house'></i> Home</h5>
-                        </a>
+                        <Link to={'/home'} className="text-decoration-none">
+                            <div className="nav-link text-light " aria-current="page" >
+                                <h5><i className='bi bi-house'></i> Home</h5>
+                            </div>
+                        </Link>
                     </li>
                     <li>
-                        <a href="true" className="nav-link text-light">
-                            <h5><i className='bi bi-person-circle'></i> Profile</h5>
-                        </a>
+                        <Link to={`/${username}`} className="text-decoration-none">
+                            <div className="nav-link text-light">
+                                <h5><i className='bi bi-person-circle'></i> Profile</h5>
+                            </div>
+                        </Link>
                     </li>
                 </ul>
             </div>

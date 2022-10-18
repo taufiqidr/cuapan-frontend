@@ -3,10 +3,10 @@ import { memo } from 'react'
 import TimeAgo from './TimeAgo'
 import { useNavigate } from "react-router-dom"
 
-const Status = ({ statusId }) => {
+const Status = ({ statusId, username }) => {
     const navigate = useNavigate()
 
-    const handleView = () => navigate(`/home/${statusId}`)
+    const handleView = () => navigate(`/${username}/${statusId}`)
 
     const { status } = useGetStatusesQuery("statusList", {
         selectFromResult: ({ data }) => ({
