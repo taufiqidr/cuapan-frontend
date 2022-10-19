@@ -1,5 +1,5 @@
 // import { Link } from 'react-router-dom'
-import { useGetStatusesQuery } from "../statuses/statusesApiSlice"
+import { useGetStatusesQuery } from "./statusesApiSlice"
 import useAuth from '../../hooks/useAuth'
 import useTitle from '../../hooks/useTitle'
 import Status from "./Status"

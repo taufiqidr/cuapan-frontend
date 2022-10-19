@@ -10,13 +10,12 @@ const Profile = () => {
 
     const { username } = useParams()
 
-    const { user } = useGetUsersQuery("usersList", {
+    const { users } = useGetUsersQuery("usersList", {
         selectFromResult: ({ data }) => ({
-            user: data
+            users: data?.ids.map(id => data?.entities[id])
         }),
     })
-
-    console.log(user);
+    const user = users.filter((user) => user.username === username)[0]
 
     if (!user) return <Loading />
 

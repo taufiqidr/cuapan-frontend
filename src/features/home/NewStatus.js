@@ -22,13 +22,12 @@ const NewStatus = () => {
     const navigate = useNavigate()
 
     const [text, setText] = useState('')
-    const [userId, setUserId] = useState(user._id)
+    const [userId] = useState(user._id)
 
     useEffect(() => {
         if (isSuccess) {
             setText('')
-            setUserId('')
-            navigate('/dash')
+            navigate('/home')
         }
     }, [isSuccess, navigate])
 
