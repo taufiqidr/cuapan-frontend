@@ -2,6 +2,13 @@
   width: 59%;
 }
 
+.top_bar {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  width: 59vw;
+}
+
 .textarea {
   border: none;
   overflow: auto;

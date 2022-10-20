@@ -8,6 +8,10 @@
 
 .main-bar {
   width: 20%;
+  height: 100vh;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
 }
 
 .dropdown-toggle {

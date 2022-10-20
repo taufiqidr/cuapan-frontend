@@ -40,8 +40,8 @@ const Home = () => {
     }).reverse()
 
     content = (
-      <div className="d-flex flex-column flex-shrink-0 feed" >
-        <div className="p-1 border-bottom border-secondary">
+      <div className="d-flex flex-column flex-shrink-0 feed " >
+        <div className="p-1 border-bottom border-secondary bg-dark sticky-top">
           <h3 className="text-center text-light">Home</h3>
         </div>
         <NewStatus />
