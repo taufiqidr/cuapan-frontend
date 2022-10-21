@@ -20,7 +20,7 @@ import StatusPage from './features/home/StatusPage';
 import Profile from './features/user/Profile';
 
 function App() {
-  useTitle('Cuapan')
+  useTitle('Cuapan App')
 
   return (
     <Routes>

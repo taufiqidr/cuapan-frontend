@@ -1,4 +1,4 @@
-// import { Link } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 import { useGetStatusesQuery } from "./statusesApiSlice"
 import useAuth from '../../hooks/useAuth'
 import useTitle from '../../hooks/useTitle'
@@ -10,6 +10,9 @@ import Loading from "../../components/Loading"
 const Home = () => {
   // const date = new Date()
   // const today = new Intl.DateTimeFormat('en-US', { dateStyle: 'full', timeStyle: 'long' }).format(date)
+  // const navigate = useNavigate()
+
+  // if (!useAuth()) navigate('/login')
   const { username } = useAuth()
   useTitle(`Home: ${username}`)
 

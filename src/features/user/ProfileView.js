@@ -31,7 +31,7 @@ const ProfileView = ({ user }) => {
 
         let filteredIds = ids.filter(statusId => entities[statusId].username === username)
 
-        const tableContent = ids?.length && filteredIds.map(statusId => <Status key={statusId} statusId={statusId} />).sort((a, b) => {
+        const tableContent = ids?.length && filteredIds.map(statusId => <Status key={statusId} statusId={statusId} username={statuses.entities[statusId].username} />).sort((a, b) => {
             return new Date(b.createdAt) - new Date(a.createdAt);
         }).reverse()
 

@@ -15,6 +15,7 @@ const Profile = () => {
             users: data?.ids.map(id => data?.entities[id])
         }),
     })
+
     const user = users.filter((user) => user.username === username)[0]
 
     if (!user) return <Loading />
