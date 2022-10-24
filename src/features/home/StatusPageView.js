@@ -19,14 +19,11 @@ const StatusPageView = ({ status }) => {
 
     useEffect(() => {
         if (isDelSuccess) {
-            setShow(false)
-
-            navigate('/profile')
+            navigate('/home')
         }
     }, [isDelSuccess, navigate])
 
-    const [show, setShow] = useState(false);
-    const handleShow = () => setShow(true);
+
     const onDeleteStatusClicked = async () => {
         await deleteStatus({ id: status.id })
     }
@@ -42,17 +39,19 @@ const StatusPageView = ({ status }) => {
                             </a>
                         </ThreeDots>
                         <ul className="dropdown-menu">
-                            <li><a className="dropdown-item" href="#0">Edit Status</a></li>
+                            <li>
+                                <Link to={`/edit/${status.id}`} className='dropdown-item'>Edit Status</Link>
+                            </li>
                             <li><hr className="dropdown-divider" /></li>
                             <li>
-                                <button type="button" className="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={handleShow}>
+                                <button type="button" className="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                     Delete Status
                                 </button>
                             </li>
                         </ul>
                     </div>
                 </div>
-                <div className="modal" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" show={show.toString()}>
+                <div className="modal" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog border">
                         <div className="modal-content bg-black ">
                             <div className="modal-header">
@@ -64,7 +63,7 @@ const StatusPageView = ({ status }) => {
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                <button type="button" className="btn btn-danger" onClick={onDeleteStatusClicked}>Delete</button>
+                                <button type="button" className="btn btn-danger" onClick={onDeleteStatusClicked} data-bs-dismiss="modal">Delete</button>
                             </div>
                         </div>
                     </div>

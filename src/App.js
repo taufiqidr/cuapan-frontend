@@ -18,6 +18,7 @@ import Register from './features/auth/Register';
 import Home from './features/home/Home';
 import StatusPage from './features/home/StatusPage';
 import Profile from './features/home/Profile';
+import EditStatus from './features/home/EditStatus';
 // import EditProfile from './features/user/EditProfile';
 
 function App() {
@@ -63,7 +64,10 @@ function App() {
                 <Route path=":id" element={<StatusPage />} />
                 {/* <Route path="edit" element={<EditProfile />} /> */}
               </Route>
-
+              <Route path="edit" element={<DashLayout />}>
+                <Route index element={<Home />} />
+                <Route path=":id" element={<EditStatus />} />
+              </Route>
             </Route>
           </Route>
         </Route>{/* End Protected Routes */}
