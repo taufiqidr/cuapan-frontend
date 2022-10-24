@@ -31,6 +31,7 @@ const DashFooter = () => {
       <p>Current User: {username}</p>
       <p>Status: {status}</p>
     </footer>
+
   )
   return content
 }

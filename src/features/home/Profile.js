@@ -1,30 +1,32 @@
-import React, { useState } from 'react'
-import Loading from '../../components/Loading'
-import { useGetStatusesQuery } from '../home/statusesApiSlice'
-import Status from "../home/Status"
-import NewStatus from '../home/NewStatus'
+import { useGetStatusesQuery } from "./statusesApiSlice"
+import useAuth from '../../hooks/useAuth'
+import useTitle from '../../hooks/useTitle'
+import Status from "./Status"
+import './home.css'
+import NewStatus from "./NewStatus"
+import Loading from "../../components/Loading"
 
-const ProfileView = ({ user }) => {
-    const [username] = useState(user.username)
-
+const Profile = () => {
+    const { username } = useAuth()
+    useTitle(`Profile: ${username}`)
     const {
         data: statuses,
         isLoading,
         isSuccess,
-        isError,
-        error
+        isError
     } = useGetStatusesQuery('statusesList', {
         pollingInterval: 15000,
         refetchOnFocus: true,
         refetchOnMountOrArgChange: true
     })
+
     let load
     let content
 
     if (isLoading) load = <Loading />
 
     if (isError) {
-        load = <p className="errmsg">{error?.data?.message}</p>
+        load = <Loading />
     }
 
     if (isSuccess) {
@@ -39,7 +41,7 @@ const ProfileView = ({ user }) => {
         content = (
             <div className="d-flex flex-column flex-shrink-0 feed border-start border-end border-secondary" >
                 <div className="p-1">
-                    <h4 className="text-center text-light">{user.username}</h4>
+                    <h4 className="text-center text-light">{username}</h4>
                 </div>
                 <NewStatus />
                 {load}
@@ -53,4 +55,4 @@ const ProfileView = ({ user }) => {
     return content
 }
 
-export default ProfileView
+export default Profile

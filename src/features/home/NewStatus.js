@@ -43,7 +43,7 @@ const NewStatus = () => {
     }
 
     const content = (
-        <div className="mt-3 mb-3 me-2 ms-2 border-bottom border-secondary">
+        <div className="mt-2 mb-3 me-2 ms-2 border-bottom border-secondary">
             <form className="form" onSubmit={onSaveStatusClicked}>
                 <textarea
                     className="form-control bg-dark text-light textarea"

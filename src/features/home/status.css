@@ -1,0 +1,11 @@
+.profile-pic {
+  border-radius: 50%;
+}
+
+.status {
+  max-height: 400px;
+}
+
+.status:hover {
+  background-color: #343a40;
+}

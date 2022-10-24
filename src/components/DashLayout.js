@@ -1,17 +1,14 @@
 import { Outlet } from 'react-router-dom'
-import Divider from './Divider'
 import RightSidebar from './RightSidebar'
 import Sidebar from './Sidebar'
 
 const DashLayout = () => {
   return (
-    <main className='d-flex'>
+    <div className='row'>
       <Sidebar />
-      <Divider />
       <Outlet />
-      <Divider />
       <RightSidebar />
-    </main>
+    </div>
   )
 }
 export default DashLayout
