@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { ArrowLeft, ThreeDots } from 'react-bootstrap-icons'
+import { ArrowLeft, Heart, ThreeDots } from 'react-bootstrap-icons'
 import { Link, useNavigate } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
 import { useDeleteStatusMutation } from '../statuses/statusesApiSlice'
+import TimeAgo from './TimeAgo'
 
 const StatusPageView = ({ status }) => {
     const navigate = useNavigate()
     const { username: curr_user } = useAuth()
 
     const [username] = useState(status.username)
-    const [text] = useState(status.text)
-    const [likes] = useState(status.likes)
-    const [createdAt] = useState(status.createdAt)
 
     const [deleteStatus, {
         isSuccess: isDelSuccess
@@ -71,28 +69,52 @@ const StatusPageView = ({ status }) => {
             </>
         )
     }
-    let time = new Date(createdAt)
     return (
         <div className="d-flex flex-column feed border-start border-end border-secondary col-6" >
             <div className="p-1 border-bottom border-secondary">
-                <h3 className="text-start text-light">
+                <h4 className="text-start text-light">
                     <Link to="/home">
                         <span className='me-2'>
                             <ArrowLeft />
                         </span>
                     </Link>
-                    status
-                </h3>
+                    Status
+                </h4>
             </div>
-            <div className="text-light ms-2 mt-2 mb-2 border-bottom border-secondary">
-                <strong className='border-bottom border-secondary'>{username}</strong>
-                <p>{text}</p>
-                <small>{time.getHours()}:{time.getMinutes()} {time.toDateString()}</small>
+            <div className="row mt-1">
+                <div className="col-2">
+                    <div className="row">
+                        <div className="col-2"></div>
+                        <div className="col-8">
+                            <img src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" alt="profile-pic" className='profile-pic img-fluid m-auto mt-1' />
+                        </div>
+                        <div className="col-2"></div>
+                    </div>
+                </div>
+                <div className="col-9">
+                    <div className="row">
+                        <div className="row"><strong>Name</strong></div>
+                        <div className="row"><small className='text-secondary'>@{status.username}</small></div>
+                    </div>
+                </div>
+                <div className="col-1">
+                    {dropdown}
+                </div>
             </div>
-            <div className="text-light ms-2 mt-2 mb-2 border-bottom border-secondary">
-                <strong>{likes} Likes</strong>
+            <div className="row mt-2">
+                <p className='text-wrap text-break'>{status.text}</p>
             </div>
-            {dropdown}
+            <div className="row mt-2">
+                <div className="text-secondary"><TimeAgo timestamp={status.createdAt} /></div>
+            </div>
+            <div className="row mt-2">
+                <p>
+                    <span className='text-secondary'>
+                        <Heart />
+                    </span>
+                    <small className='ms-2 text-secondary'>{status.likes}</small>
+                </p>
+            </div>
         </div>
     )
 }

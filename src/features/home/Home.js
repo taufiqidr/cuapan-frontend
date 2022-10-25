@@ -43,13 +43,13 @@ const Home = () => {
         }).reverse()
 
         content = (
-            <div className="d-flex flex-column feed border-start border-end border-secondary col-6" >
+            <div className="container-fluid flex-column feed border-start border-end border-secondary col-6" >
                 <div className="p-1 sticky-top bg-black">
                     <h4 className="text-light">Home</h4>
                 </div>
                 <NewStatus />
                 {load}
-                <div className="list-group list-group-flush scrollarea">
+                <div className="container-fluid list-group list-group-flush scrollarea">
                     {tableContent}
                 </div>
             </div>

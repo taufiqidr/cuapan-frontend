@@ -59,6 +59,30 @@ export const statusesApiSlice = apiSlice.injectEndpoints({
                 { type: 'Status', id: arg.id }
             ]
         }),
+        upvoteStatus: builder.mutation({
+            query: initialStatus => ({
+                url: '/statuses/upvote',
+                method: 'PATCH',
+                body: {
+                    ...initialStatus,
+                }
+            }),
+            invalidatesTags: (result, error, arg) => [
+                { type: 'Status', id: arg.id }
+            ]
+        }),
+        downvoteStatus: builder.mutation({
+            query: initialStatus => ({
+                url: '/statuses/downvote',
+                method: 'PATCH',
+                body: {
+                    ...initialStatus,
+                }
+            }),
+            invalidatesTags: (result, error, arg) => [
+                { type: 'Status', id: arg.id }
+            ]
+        }),
         deleteStatus: builder.mutation({
             query: ({ id }) => ({
                 url: `/statuses`,
@@ -77,6 +101,8 @@ export const {
     useAddNewStatusMutation,
     useUpdateStatusMutation,
     useDeleteStatusMutation,
+    useUpvoteStatusMutation,
+    useDownvoteStatusMutation
 } = statusesApiSlice
 
 // returns the query result object

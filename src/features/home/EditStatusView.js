@@ -7,6 +7,8 @@ const EditStatusView = ({ status }) => {
         isLoading,
         isSuccess,
     }] = useUpdateStatusMutation()
+
+
     const navigate = useNavigate()
 
     const [text, setText] = useState(status.text)

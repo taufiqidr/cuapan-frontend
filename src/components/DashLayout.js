@@ -4,11 +4,14 @@ import Sidebar from './Sidebar'
 
 const DashLayout = () => {
   return (
-    <div className='row'>
-      <Sidebar />
-      <Outlet />
-      <RightSidebar />
+    <div className="container">
+      <div className='row'>
+        <Sidebar />
+        <Outlet />
+        <RightSidebar />
+      </div>
     </div>
+
   )
 }
 export default DashLayout

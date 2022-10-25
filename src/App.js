@@ -28,13 +28,14 @@ function App() {
     <Routes>
       <Route path="/" element={<Layout />}>
         {/* public routes */}
-        <Route index element={<Public />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
-
-        {/* Protected Routes */}
         < Route element={<PersistLogin />}>
           <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>
+            <Route index element={<Public />} />
+
+            {/* Protected Routes */}
+
             <Route element={<Prefetch />}>
               <Route path="home" element={<DashLayout />}>
                 <Route index element={<Home />} />
@@ -54,9 +55,9 @@ function App() {
                 </Route> */}
 
               </Route>{/* End Dash */}
-
               <Route path="profile" element={<DashLayout />}>
                 <Route index element={<Profile />} />
+                <Route path=":id" element={<Profile />} />
                 {/* <Route path="edit" element={<EditProfile />} /> */}
               </Route>
               <Route path="status" element={<DashLayout />}>

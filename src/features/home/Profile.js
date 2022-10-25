@@ -5,6 +5,8 @@ import Status from "./Status"
 import './home.css'
 import NewStatus from "./NewStatus"
 import Loading from "../../components/Loading"
+import { ArrowLeft } from "react-bootstrap-icons"
+import { Link } from "react-router-dom"
 
 const Profile = () => {
     const { username } = useAuth()
@@ -40,8 +42,38 @@ const Profile = () => {
 
         content = (
             <div className="d-flex flex-column flex-shrink-0 feed border-start border-end border-secondary" >
-                <div className="p-1">
-                    <h4 className="text-center text-light">{username}</h4>
+                <div className="p-1 border-bottom border-secondary">
+                    <h4 className="text-start text-light">
+                        <Link to="/home">
+                            <span className='me-2'>
+                                <ArrowLeft />
+                            </span>
+                        </Link>
+                        {username}
+                    </h4>
+                </div>
+                <div className="container">
+                    <div className="row"></div>
+                    <div className="row">
+                        <div className="col-4"></div>
+                        <div className="col-4">
+                            <img src="default.jpg" alt="profile-pic" className='profile-pic img-fluid' />
+                        </div>
+                        <div className="col-4"></div>
+                    </div>
+                    <div className="row">
+                        <div className="row"><strong>Name</strong></div>
+                        <div className="row"><small className="text-secondary">@username</small></div>
+                        <div className="row"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex optio ut, voluptatibus mollitia qui laudantium, sed cupiditate quis, soluta dolore nam rerum accusamus? Aliquid magnam ipsam consequuntur cupiditate repudiandae deserunt, ratione delectus pariatur soluta eveniet tempore animi id ad provident illum omnis, beatae facere est reiciendis sequi. Ullam, maxime quos.</p></div>
+                        <div className="row">
+                            <p><small className="text-secondary">Born September 8, 1999</small></p>
+                        </div>
+                        <div className="row">
+                            <p><strong>0</strong><small className="text-secondary"> Total likes</small></p>
+
+                        </div>
+                    </div>
+
                 </div>
                 <NewStatus />
                 {load}
