@@ -3,8 +3,7 @@ import TimeAgo from './TimeAgo'
 import './status.css'
 import { Link } from "react-router-dom"
 import { ArrowDown, ArrowUp } from 'react-bootstrap-icons'
-import { useGetStatusesQuery } from '../statuses/statusesApiSlice'
-import { useDownvoteStatusMutation, useUpvoteStatusMutation } from './statusesApiSlice'
+import { useDownvoteStatusMutation, useUpvoteStatusMutation, useGetStatusesQuery } from './statusesApiSlice'
 import { useDispatch } from 'react-redux'
 import { upvote, downvote } from './voteSlice'
 

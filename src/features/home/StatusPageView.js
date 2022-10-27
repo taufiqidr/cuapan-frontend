@@ -3,7 +3,7 @@ import { Heart, ThreeDots } from 'react-bootstrap-icons'
 import { Link, useNavigate } from 'react-router-dom'
 import BackButton from '../../components/BackButton'
 import useAuth from '../../hooks/useAuth'
-import { useDeleteStatusMutation } from '../statuses/statusesApiSlice'
+import { useDeleteStatusMutation } from './statusesApiSlice'
 import TimeAgo from './TimeAgo'
 
 const StatusPageView = ({ status }) => {
