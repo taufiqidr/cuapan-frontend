@@ -13,8 +13,7 @@ import Home from './features/home/Home';
 import StatusPage from './features/home/StatusPage';
 import Profile from './features/home/Profile';
 import EditStatus from './features/home/EditStatus';
-// import EditProfile from './features/user/EditProfile';
-
+import EditProfile from './features/home/EditProfile';
 function App() {
   useTitle('Cuapan App')
 
@@ -41,14 +40,10 @@ function App() {
                     </Route>
                   </Route>
                 </Route>
-                {/* <Route path="edit" element={<EditProfile />} /> */}
+                <Route path="edit">
+                  <Route index element={<EditProfile />} />
+                </Route>
               </Route>
-
-              {/* <Route path="status" element={<DashLayout />}>
-                <Route index element={<Home />} />
-                <Route path=":id" element={<StatusPage />} />
-              </Route> */}
-
             </Route>
           </Route>
         </Route>

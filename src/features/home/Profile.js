@@ -77,11 +77,11 @@ const Profile = () => {
                         <div className="col-4"></div>
                     </div>
                     <div className="row">
-                        <div className="row"><strong>{user.name}</strong></div>
-                        <div className="row"><small className="text-secondary">@{user.username}</small></div>
-                        <div className="row"><p>{user.description}</p></div>
+                        <div className="row"><strong>{user.name ? user.name : 'name not set'}</strong></div>
+                        <div className="row"><small className="text-secondary">@{user.username ? user.username : 'username not set'}</small></div>
+                        <div className="row"><p>{user.description ? user.description : 'bio not set'}</p></div>
                         <div className="row">
-                            <p><small className="text-secondary">{user.dob}</small></p>
+                            <p><small className="text-secondary">{user.dob ? user.dob : 'date of birth not set'}</small></p>
                         </div>
                         <div className="row">
                             <p><strong>0</strong><small className="text-secondary"> Total likes</small></p>
