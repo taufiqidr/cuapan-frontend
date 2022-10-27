@@ -3,12 +3,6 @@ import Layout from './components/Layout'
 import Public from './components/Public'
 import Login from './features/auth/Login';
 import DashLayout from './components/DashLayout'
-// import StatusesList from './features/statuses/StatusesList'
-// import UsersList from './features/users/UsersList'
-// import EditUser from './features/users/EditUser'
-// import NewUserForm from './features/users/NewUserForm'
-// import EditStatus from './features/statuses/EditStatus'
-// import NewStatus from './features/statuses/NewStatus'
 import Prefetch from './features/auth/Prefetch'
 import PersistLogin from './features/auth/PersistLogin'
 import RequireAuth from './features/auth/RequireAuth'
@@ -27,51 +21,37 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        {/* public routes */}
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         < Route element={<PersistLogin />}>
           <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>
             <Route index element={<Public />} />
-
-            {/* Protected Routes */}
-
             <Route element={<Prefetch />}>
               <Route path="home" element={<DashLayout />}>
                 <Route index element={<Home />} />
-
-                {/* <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
-                  <Route path="users">
-                    <Route index element={<UsersList />} />
-                    <Route path=":id" element={<EditUser />} />
-                    <Route path="new" element={<NewUserForm />} />
-                  </Route>
-                </Route> */}
-
-                {/* <Route path="statuses">
-                  <Route index element={<StatusesList />} />
-                  <Route path=":id" element={<EditStatus />} />
-                  <Route path="new" element={<NewStatus />} />
-                </Route> */}
-
-              </Route>{/* End Dash */}
-              <Route path="profile" element={<DashLayout />}>
+              </Route>
+              <Route path=":username" element={<DashLayout />}>
                 <Route index element={<Profile />} />
-                <Route path=":id" element={<Profile />} />
+                <Route path="status">
+                  <Route index element={<Profile />} />
+                  <Route path=":id">
+                    <Route index element={<StatusPage />} />
+                    <Route path="edit">
+                      <Route index element={<EditStatus />} />
+                    </Route>
+                  </Route>
+                </Route>
                 {/* <Route path="edit" element={<EditProfile />} /> */}
               </Route>
-              <Route path="status" element={<DashLayout />}>
+
+              {/* <Route path="status" element={<DashLayout />}>
                 <Route index element={<Home />} />
                 <Route path=":id" element={<StatusPage />} />
-                {/* <Route path="edit" element={<EditProfile />} /> */}
-              </Route>
-              <Route path="edit" element={<DashLayout />}>
-                <Route index element={<Home />} />
-                <Route path=":id" element={<EditStatus />} />
-              </Route>
+              </Route> */}
+
             </Route>
           </Route>
-        </Route>{/* End Protected Routes */}
+        </Route>
       </Route>
     </Routes >
   );

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import BackButton from '../../components/BackButton'
 import { useUpdateStatusMutation } from './statusesApiSlice'
 
 const EditStatusView = ({ status }) => {
@@ -36,6 +37,12 @@ const EditStatusView = ({ status }) => {
 
     return (
         <div className="d-flex flex-column feed border-start border-end border-secondary col-6" >
+            <div className="p-1 border-bottom border-secondary">
+                <h4 className="text-start text-light">
+                    <BackButton />
+                    Edit Status
+                </h4>
+            </div>
             <div className="mt-2 mb-3 me-2 ms-2 border-bottom border-secondary">
                 <form className='form' onSubmit={e => e.preventDefault()}>
                     <textarea

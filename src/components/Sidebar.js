@@ -9,6 +9,9 @@ const Sidebar = () => {
     const { username, isAdmin } = useAuth()
     const navigate = useNavigate()
     const { pathname } = useLocation()
+
+
+
     let classHome, classProfile
     if (pathname === '/home') {
         classHome = "text-decoration-none text-light nav-link active"
@@ -28,7 +31,7 @@ const Sidebar = () => {
     }] = useSendLogoutMutation()
 
     useEffect(() => {
-        if (isSuccess) navigate('/')
+        if (isSuccess) navigate('/login')
     }, [isSuccess, navigate])
 
     let menu = ""
@@ -61,7 +64,7 @@ const Sidebar = () => {
                 </li>
                 <li className='nav-item'>
                     <div className='m-1'>
-                        <Link to={`/profile`} className={classProfile}>
+                        <Link to={`/${username}`} className={classProfile}>
                             <h4><span className=''><PersonFill /></span>Profile</h4>
                         </Link>
                     </div>

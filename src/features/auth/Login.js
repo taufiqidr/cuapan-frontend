@@ -5,10 +5,10 @@ import { setCredentials } from './authSlice'
 import { useLoginMutation } from './authApiSlice'
 import usePersist from '../../hooks/usePersist'
 import useTitle from '../../hooks/useTitle'
-import PulseLoader from 'react-spinners/PulseLoader'
 import PublicHeader from '../../components/PublicHeader'
 import PublicFooter from '../../components/PublicFooter'
 import './login.css';
+import Loading from '../../components/Loading'
 
 const Login = () => {
   useTitle('Login')
@@ -62,7 +62,14 @@ const Login = () => {
 
   const errClass = errMsg ? "text-danger text-center" : "offscreen"
 
-  if (isLoading) return <PulseLoader color={"#FFF"} />
+  if (isLoading) {
+    setTimeout(() => {
+      return <Loading />
+    }, 5000);
+
+
+  }
+
 
   const content = (
     <>

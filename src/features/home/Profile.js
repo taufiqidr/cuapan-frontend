@@ -1,16 +1,29 @@
 import { useGetStatusesQuery } from "./statusesApiSlice"
-import useAuth from '../../hooks/useAuth'
 import useTitle from '../../hooks/useTitle'
 import Status from "./Status"
 import './home.css'
 import NewStatus from "./NewStatus"
 import Loading from "../../components/Loading"
-import { ArrowLeft } from "react-bootstrap-icons"
-import { Link } from "react-router-dom"
+import { useParams } from "react-router-dom"
+import { useGetUsersQuery } from "./usersApiSlice"
+import { memo } from 'react'
+import BackButton from "../../components/BackButton"
 
 const Profile = () => {
-    const { username } = useAuth()
+    const { username } = useParams()
     useTitle(`Profile: ${username}`)
+
+    const {
+        data: users,
+        isLoading: loadingUser,
+        isSuccess: successUser,
+        isError: errorUser,
+    } = useGetUsersQuery('usersList', {
+        pollingInterval: 60000,
+        refetchOnFocus: true,
+        refetchOnMountOrArgChange: true
+    })
+
     const {
         data: statuses,
         isLoading,
@@ -25,31 +38,33 @@ const Profile = () => {
     let load
     let content
 
-    if (isLoading) load = <Loading />
+    if (isLoading && loadingUser) load = <Loading />
 
-    if (isError) {
+    if (isError && errorUser) {
         load = <Loading />
     }
 
-    if (isSuccess) {
+    if (isSuccess && successUser) {
         const { ids, entities } = statuses
-
         let filteredIds = ids.filter(statusId => entities[statusId].username === username)
 
-        const tableContent = ids?.length && filteredIds.map(statusId => <Status key={statusId} statusId={statusId} username={statuses.entities[statusId].username} />).sort((a, b) => {
-            return new Date(b.createdAt) - new Date(a.createdAt);
-        }).reverse()
+        const tableContent = ids?.length && filteredIds.map(statusId => <Status key={statusId} statusId={statusId} username={statuses.entities[statusId].username} time={statuses.entities[statusId].createdAt} />).sort((a, b) => {
+            return new Date(b.props.time).getTime() - new Date(a.props.time).getTime()
+        })
+
+        const { entities: userent } = users
+        let arr = []
+        Object.keys(userent).forEach(function (key, index) {
+            arr.push(userent[key])
+        });
+        const user = arr.filter(user => user.username === username)[0]
 
         content = (
             <div className="d-flex flex-column flex-shrink-0 feed border-start border-end border-secondary" >
                 <div className="p-1 border-bottom border-secondary">
                     <h4 className="text-start text-light">
-                        <Link to="/home">
-                            <span className='me-2'>
-                                <ArrowLeft />
-                            </span>
-                        </Link>
-                        {username}
+                        <BackButton />
+                        {user.username}
                     </h4>
                 </div>
                 <div className="container">
@@ -57,23 +72,21 @@ const Profile = () => {
                     <div className="row">
                         <div className="col-4"></div>
                         <div className="col-4">
-                            <img src="default.jpg" alt="profile-pic" className='profile-pic img-fluid' />
+                            <img src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" alt="profile-pic" className='profile-pic img-fluid' />
                         </div>
                         <div className="col-4"></div>
                     </div>
                     <div className="row">
-                        <div className="row"><strong>Name</strong></div>
-                        <div className="row"><small className="text-secondary">@username</small></div>
-                        <div className="row"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex optio ut, voluptatibus mollitia qui laudantium, sed cupiditate quis, soluta dolore nam rerum accusamus? Aliquid magnam ipsam consequuntur cupiditate repudiandae deserunt, ratione delectus pariatur soluta eveniet tempore animi id ad provident illum omnis, beatae facere est reiciendis sequi. Ullam, maxime quos.</p></div>
+                        <div className="row"><strong>{user.name}</strong></div>
+                        <div className="row"><small className="text-secondary">@{user.username}</small></div>
+                        <div className="row"><p>{user.description}</p></div>
                         <div className="row">
-                            <p><small className="text-secondary">Born September 8, 1999</small></p>
+                            <p><small className="text-secondary">{user.dob}</small></p>
                         </div>
                         <div className="row">
                             <p><strong>0</strong><small className="text-secondary"> Total likes</small></p>
-
                         </div>
                     </div>
-
                 </div>
                 <NewStatus />
                 {load}
@@ -83,8 +96,9 @@ const Profile = () => {
             </div>
         )
     }
-
     return content
 }
 
-export default Profile
+const memoizedProfile = memo(Profile)
+
+export default memoizedProfile

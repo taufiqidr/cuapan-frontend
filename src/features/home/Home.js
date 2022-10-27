@@ -1,4 +1,3 @@
-// import { useNavigate } from 'react-router-dom'
 import { useGetStatusesQuery } from "./statusesApiSlice"
 import useAuth from '../../hooks/useAuth'
 import useTitle from '../../hooks/useTitle'
@@ -8,11 +7,6 @@ import NewStatus from "./NewStatus"
 import Loading from "../../components/Loading"
 
 const Home = () => {
-    // const date = new Date()
-    // const today = new Intl.DateTimeFormat('en-US', { dateStyle: 'full', timeStyle: 'long' }).format(date)
-    // const navigate = useNavigate()
-
-    // if (!useAuth()) navigate('/login')
     const { username } = useAuth()
     useTitle(`Home: ${username}`)
 
@@ -38,9 +32,9 @@ const Home = () => {
         const { ids } = statuses
         let Ids = [...ids]
 
-        const tableContent = ids?.length && Ids.map(statusId => <Status key={statusId} statusId={statusId} username={statuses.entities[statusId].username} />).sort((a, b) => {
-            return new Date(b.createdAt) - new Date(a.createdAt);
-        }).reverse()
+        const tableContent = ids?.length && Ids.map(statusId => <Status key={statusId} statusId={statusId} username={statuses.entities[statusId].username} time={statuses.entities[statusId].createdAt} />).sort((a, b) => {
+            return new Date(b.props.time).getTime() - new Date(a.props.time).getTime()
+        })
 
         content = (
             <div className="container-fluid flex-column feed border-start border-end border-secondary col-6" >

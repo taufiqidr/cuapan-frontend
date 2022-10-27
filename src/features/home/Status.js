@@ -8,7 +8,7 @@ import { useDownvoteStatusMutation, useUpvoteStatusMutation } from './statusesAp
 import { useDispatch } from 'react-redux'
 import { upvote, downvote } from './voteSlice'
 
-const Status = ({ statusId, username }) => {
+const Status = ({ statusId, username, time }) => {
     const dispatch = useDispatch()
 
     const { status } = useGetStatusesQuery("statusList", {
@@ -35,10 +35,10 @@ const Status = ({ statusId, username }) => {
             <div className="container-fluid status border-bottom border-top border-secondary">
                 <div className="row mt-1 mb-1">
                     <div className="col-sm-2">
-                        <div className="row"><img src="default.jpg" alt="profile-pic" className='profile-pic img-fluid m-auto mt-1' /></div>
+                        <div className="row"><img src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" alt="profile-pic" className='profile-pic img-fluid m-auto mt-1' /></div>
                     </div>
                     <div className="col-10 ">
-                        <Link to={`/status/${statusId}`} className='text-decoration-none text-light'>
+                        <Link to={`/${status.username}/status/${statusId}`} className='text-decoration-none text-light' >
                             <div className="row mt-1">
                                 <div className="col-2 "><strong className='strong'>@{status.username}</strong></div>
                                 <div className="col-10 text-end text-secondary"><TimeAgo timestamp={status.createdAt} /></div>
@@ -59,13 +59,10 @@ const Status = ({ statusId, username }) => {
                                     <ArrowDown />
                                 </span>
                             </div>
-
                         </div>
                     </div>
                 </div>
-
             </div>
-
         )
     } else return null
 }

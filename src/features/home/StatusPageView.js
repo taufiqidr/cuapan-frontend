@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { ArrowLeft, Heart, ThreeDots } from 'react-bootstrap-icons'
+import { Heart, ThreeDots } from 'react-bootstrap-icons'
 import { Link, useNavigate } from 'react-router-dom'
+import BackButton from '../../components/BackButton'
 import useAuth from '../../hooks/useAuth'
 import { useDeleteStatusMutation } from '../statuses/statusesApiSlice'
 import TimeAgo from './TimeAgo'
@@ -38,7 +39,7 @@ const StatusPageView = ({ status }) => {
                         </ThreeDots>
                         <ul className="dropdown-menu">
                             <li>
-                                <Link to={`/edit/${status.id}`} className='dropdown-item'>Edit Status</Link>
+                                <Link to={`/${status.username}/status/${status.id}/edit`} className='dropdown-item'>Edit Status</Link>
                             </li>
                             <li><hr className="dropdown-divider" /></li>
                             <li>
@@ -73,11 +74,7 @@ const StatusPageView = ({ status }) => {
         <div className="d-flex flex-column feed border-start border-end border-secondary col-6" >
             <div className="p-1 border-bottom border-secondary">
                 <h4 className="text-start text-light">
-                    <Link to="/home">
-                        <span className='me-2'>
-                            <ArrowLeft />
-                        </span>
-                    </Link>
+                    <BackButton />
                     Status
                 </h4>
             </div>
