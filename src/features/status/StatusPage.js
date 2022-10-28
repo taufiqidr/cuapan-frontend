@@ -1,8 +1,8 @@
-import React from 'react'
 import { useParams } from 'react-router-dom'
 import Loading from '../../components/Loading'
 import useTitle from '../../hooks/useTitle'
-import { useGetStatusesQuery } from './statusesApiSlice'
+import { useGetStatusesQuery } from '../slice/statusesApiSlice'
+
 import StatusPageView from './StatusPageView'
 
 const StatusPage = () => {

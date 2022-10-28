@@ -1,19 +1,25 @@
 import { Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
 import Public from './components/Public'
-import Login from './features/auth/Login';
 import DashLayout from './components/DashLayout'
+
+import Login from './features/auth/Login';
+import Register from './features/auth/Register';
 import Prefetch from './features/auth/Prefetch'
 import PersistLogin from './features/auth/PersistLogin'
 import RequireAuth from './features/auth/RequireAuth'
+
 import { ROLES } from './config/roles'
 import useTitle from './hooks/useTitle';
-import Register from './features/auth/Register';
+
 import Home from './features/home/Home';
-import StatusPage from './features/home/StatusPage';
-import Profile from './features/home/Profile';
-import EditStatus from './features/home/EditStatus';
-import EditProfile from './features/home/EditProfile';
+
+import StatusPage from './features/status/StatusPage';
+import EditStatus from './features/status/EditStatus';
+
+import Profile from './features/profile/Profile';
+import EditProfile from './features/profile/EditProfile';
+
 function App() {
   useTitle('Cuapan App')
 

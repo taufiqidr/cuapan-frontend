@@ -1,10 +1,9 @@
-import { useGetStatusesQuery } from "./statusesApiSlice"
 import useAuth from '../../hooks/useAuth'
 import useTitle from '../../hooks/useTitle'
-import Status from "./Status"
-import './home.css'
-import NewStatus from "./NewStatus"
 import Loading from "../../components/Loading"
+import { useGetStatusesQuery } from "../slice/statusesApiSlice"
+import Status from "../status/Status"
+import NewStatus from "../status/NewStatus"
 
 const Home = () => {
     const { username } = useAuth()

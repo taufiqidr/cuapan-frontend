@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit"
 import { apiSlice } from './api/apiSlice'
 import { setupListeners } from "@reduxjs/toolkit/query"
 import authReducer from '../features/auth/authSlice'
-import voteReducer from '../features/home/voteSlice'
+import voteReducer from '../features/slice/voteSlice'
 
 export const store = configureStore({
   reducer: {

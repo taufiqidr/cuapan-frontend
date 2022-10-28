@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import { ArrowLeft } from 'react-bootstrap-icons'
-import { Link, useNavigate } from 'react-router-dom'
-import { useUpdateUserMutation } from './usersApiSlice'
+import { useNavigate } from 'react-router-dom'
+import BackButton from '../../components/BackButton'
+import { useUpdateUserMutation } from '../slice/usersApiSlice'
 
 const USER_REGEX = /^[A-z]{3,20}$/
 
 const EditProfileView = ({ user }) => {
-    const [id] = useState(user.id)
-    const [username, setUsername] = useState(user.username)
+    const [id] = useState(user.id ? user.id : '')
+    const [username, setUsername] = useState(user.username ? user.username : '')
     const [validUsername, setValidUsername] = useState(false)
-    const [email, setEmail] = useState(user.email)
-    const [name, setName] = useState(user.name)
-    const [day, setDay] = useState(new Date(user.dob).getDate().toString())
-    const [month, setMonth] = useState(new Date(user.dob).getMonth().toString())
-    const [year, setYear] = useState(new Date(user.dob).getFullYear().toString())
-    const [dob, setDob] = useState(user.dob)
+    const [email, setEmail] = useState(user.email ? user.email : '')
+    const [name, setName] = useState(user.name ? user.name : '')
+    const [day, setDay] = useState(user.dob ? new Date(user.dob).getDate() : '')
+    const [month, setMonth] = useState(user.dob ? new Date(user.dob).getMonth() : '')
+    const [year, setYear] = useState(user.dob ? new Date(user.dob).getFullYear() : '')
+    const [dob, setDob] = useState(user.dob ? user.dob : '')
+
     const [updateUser, {
         isLoading,
         isSuccess,
@@ -26,7 +27,7 @@ const EditProfileView = ({ user }) => {
     }, [username])
 
     useEffect(() => {
-        setDob(`${day}-${month}-${year}`)
+        setDob(new Date(Date.UTC(year, month, day)))
     }, [day, month, year])
 
     useEffect(() => {
@@ -37,17 +38,13 @@ const EditProfileView = ({ user }) => {
             setDay('')
             setMonth('')
             setYear('')
-            navigate(`{/${user.username}}`)
+            navigate(`/${user.username}`)
         }
     }, [isSuccess, navigate, user.username])
 
     const onUsernameChanged = e => setUsername(e.target.value)
     const onEmailChanged = e => setEmail(e.target.value)
     const onNameChanged = e => setName(e.target.value)
-
-    const onDayChanged = e => setDay(e.target.value)
-    const onMonthChanged = e => setMonth(e.target.value)
-    const onYearChanged = e => setYear(e.target.value)
 
     const onSaveUserClicked = async (e) => {
         e.preventDefault()
@@ -62,6 +59,11 @@ const EditProfileView = ({ user }) => {
     let days = []
     let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     let years = []
+
+    const onDayChanged = e => setDay(e.target.value)
+    const onMonthChanged = e => setMonth(months.indexOf(e.target.value))
+    const onYearChanged = e => setYear(e.target.value)
+
     for (let i = 1; i <= 31; i++) {
         days.push(i)
     }
@@ -75,7 +77,6 @@ const EditProfileView = ({ user }) => {
                 <option
                     key={day}
                     value={day}
-
                 > {day}</option >
             )
         }
@@ -106,11 +107,7 @@ const EditProfileView = ({ user }) => {
         <div className="d-flex flex-column feed border-start border-end border-secondary col-6" >
             <div className="p-1 border-bottom border-secondary">
                 <h3 className="text-start text-light">
-                    <Link to="/home">
-                        <span className='me-2'>
-                            <ArrowLeft />
-                        </span>
-                    </Link>
+                    <BackButton />
                     Edit Profile
                 </h3>
             </div>
@@ -174,7 +171,7 @@ const EditProfileView = ({ user }) => {
                 </div>
                 <hr />
                 <div className="mb-3">
-                    <button className={canSavebutton} disabled={!canSave}>Sign Up</button>
+                    <button className={canSavebutton} disabled={!canSave}>Save</button>
                 </div>
             </form>
         </div>

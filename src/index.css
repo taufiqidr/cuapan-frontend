@@ -7,3 +7,42 @@
 html {
   scroll-behavior: smooth;
 }
+
+.profile-pic {
+  border-radius: 50%;
+}
+
+.status:hover {
+  background-color: #343a40;
+}
+
+.feed {
+  width: 59%;
+  overflow: hidden;
+}
+
+.top_bar {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  width: 59vw;
+}
+
+.textarea {
+  border: none;
+  overflow: auto;
+  outline: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  resize: none;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}

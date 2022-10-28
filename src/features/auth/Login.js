@@ -7,7 +7,6 @@ import usePersist from '../../hooks/usePersist'
 import useTitle from '../../hooks/useTitle'
 import PublicHeader from '../../components/PublicHeader'
 import PublicFooter from '../../components/PublicFooter'
-import './login.css';
 import Loading from '../../components/Loading'
 
 const Login = () => {

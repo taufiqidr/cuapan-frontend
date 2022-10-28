@@ -1,6 +1,6 @@
 import { store } from '../../app/store'
-import { statusesApiSlice } from '../home/statusesApiSlice'
-import { usersApiSlice } from '../home/usersApiSlice';
+import { statusesApiSlice } from '../slice/statusesApiSlice'
+import { usersApiSlice } from '../slice/usersApiSlice';
 import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 

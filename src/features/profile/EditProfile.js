@@ -1,27 +1,47 @@
-import React from 'react'
-import { useParams } from 'react-router-dom'
-import Loading from '../../components/Loading'
+import React, { useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import useAuth from '../../hooks/useAuth'
 import useTitle from '../../hooks/useTitle'
 import EditProfileView from './EditProfileView'
-import { useGetUsersQuery } from './usersApiSlice'
+import { useGetUsersQuery } from '../slice/usersApiSlice'
 
 const EditProfile = () => {
-    useTitle('Edit Profile')
-    const { username } = useParams()
+    const { username } = useAuth()
+    const { username: username_params } = useParams()
+    const navigate = useNavigate()
 
-    const { users } = useGetUsersQuery("usersList", {
-        selectFromResult: ({ data }) => ({
-            users: data?.ids.map(id => data?.entities[id])
-        }),
+    useTitle(`Edit Profile: ${username}`)
+
+    useEffect(() => {
+        if (username !== username_params) {
+            console.log('cant edit other user profile');
+            navigate('/home');
+        }
+    }, [username, username_params, navigate])
+
+    const {
+        data: users,
+        isSuccess: successUser,
+    } = useGetUsersQuery('usersList', {
+        pollingInterval: 60000,
+        refetchOnFocus: true,
+        refetchOnMountOrArgChange: true
     })
 
-    const user = users.filter((user) => user.username === username)[0]
+    let content
 
-    if (!user) return <Loading />
-
-    const content = <EditProfileView user={user} />
+    if (successUser) {
+        const { entities: userent } = users
+        let arr = []
+        Object.keys(userent).forEach(function (key, index) {
+            arr.push(userent[key])
+        });
+        const user = arr.filter(user => user.username === username)[0]
+        content = <EditProfileView user={user} />
+    }
 
     return content
+
 }
 
 export default EditProfile

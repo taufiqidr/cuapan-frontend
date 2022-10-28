@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import useAuth from "../../hooks/useAuth"
-import { useGetUsersQuery } from "../home/usersApiSlice"
-import { useAddNewStatusMutation } from "./statusesApiSlice"
+import { useGetUsersQuery } from "../slice/usersApiSlice"
+import { useAddNewStatusMutation } from "../slice/statusesApiSlice"
 
 const NewStatus = () => {
 
@@ -46,7 +46,7 @@ const NewStatus = () => {
         <div className="mt-2 mb-3 me-2 ms-2 border-bottom border-secondary">
             <form className="form" onSubmit={onSaveStatusClicked}>
                 <textarea
-                    className="form-control bg-dark text-light textarea"
+                    className="textarea form-control bg-black text-light border border-0 shadow-none"
                     rows={3}
                     placeholder='Write something'
                     id="text"

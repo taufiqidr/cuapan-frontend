@@ -1,10 +1,9 @@
-import React from 'react'
 import { useParams } from 'react-router-dom'
 import Loading from '../../components/Loading'
 import useAuth from '../../hooks/useAuth'
 import useTitle from '../../hooks/useTitle'
 import EditStatusView from './EditStatusView'
-import { useGetStatusesQuery } from './statusesApiSlice'
+import { useGetStatusesQuery } from '../slice/statusesApiSlice'
 
 const EditStatus = () => {
     useTitle('Edit Status')

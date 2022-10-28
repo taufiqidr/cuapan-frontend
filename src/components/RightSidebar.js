@@ -3,7 +3,7 @@ import Toast from 'react-bootstrap/Toast'
 import ToastHeader from 'react-bootstrap/ToastHeader'
 import ToastBody from 'react-bootstrap/ToastBody'
 import { useDispatch, useSelector } from 'react-redux'
-import { closeup, closedown } from '../features/home/voteSlice'
+import { closeup, closedown } from '../features/slice/voteSlice'
 import { ToastContainer } from 'react-bootstrap'
 
 const RightSidebar = () => {

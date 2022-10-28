@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Heart, ThreeDots } from 'react-bootstrap-icons'
 import { Link, useNavigate } from 'react-router-dom'
 import BackButton from '../../components/BackButton'
 import useAuth from '../../hooks/useAuth'
-import { useDeleteStatusMutation } from './statusesApiSlice'
+import { useDeleteStatusMutation } from '../slice/statusesApiSlice'
+
 import TimeAgo from './TimeAgo'
 
 const StatusPageView = ({ status }) => {
