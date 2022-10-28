@@ -4,6 +4,8 @@ import Loading from "../../components/Loading"
 import { useGetStatusesQuery } from "../slice/statusesApiSlice"
 import Status from "../status/Status"
 import NewStatus from "../status/NewStatus"
+import ErrorPage from '../../components/ErrorPage'
+import Bar from '../../components/Bar'
 
 const Home = () => {
     const { username } = useAuth()
@@ -22,10 +24,9 @@ const Home = () => {
     })
 
     let content
-    let load
 
-    if (isLoading) load = <Loading />
-    if (isError) load = <p className="errmsg">{error?.data?.message}</p>
+    if (isLoading) content = <Loading />
+    if (isError) content = <ErrorPage message={error?.data?.message} />
 
     if (isSuccess) {
         const { ids } = statuses
@@ -36,12 +37,9 @@ const Home = () => {
         })
 
         content = (
-            <div className="container-fluid flex-column feed border-start border-end border-secondary col-6" >
-                <div className="p-1 sticky-top bg-black">
-                    <h4 className="text-light">Home</h4>
-                </div>
+            <div className="container-fluid border-start border-end border-secondary" >
+                <Bar title={'Home'} />
                 <NewStatus />
-                {load}
                 <div className="container-fluid list-group list-group-flush scrollarea">
                     {tableContent}
                 </div>

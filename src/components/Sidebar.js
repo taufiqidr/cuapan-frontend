@@ -10,8 +10,6 @@ const Sidebar = () => {
     const navigate = useNavigate()
     const { pathname } = useLocation()
 
-
-
     let classHome, classProfile
     if (pathname === '/home') {
         classHome = "text-decoration-none text-light nav-link active"
@@ -48,7 +46,7 @@ const Sidebar = () => {
     )
     // const nav_item = "text-light flex-column m-3 nav-link"
     return (
-        <div className="d-flex flex-column flex-shrink-0 main-bar col-3">
+        <div className="d-flex flex-column flex-shrink-0 main-bar">
             <div className="d-flex p-1 ">
                 <h4>
                     <ArrowLeftRight />

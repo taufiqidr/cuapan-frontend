@@ -16,16 +16,11 @@ html {
   background-color: #343a40;
 }
 
-.feed {
-  width: 59%;
-  overflow: hidden;
-}
-
-.top_bar {
+.top-bar {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  width: 59vw;
+  z-index: 3;
 }
 
 .textarea {

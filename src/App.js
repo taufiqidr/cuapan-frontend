@@ -26,11 +26,13 @@ function App() {
 
   return (
     <Routes>
-      < Route element={<PersistLogin />}>
-        <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>
-          <Route path="/" element={<Layout />} errorElement={<ErrorPage message={'Page not found'} />}>
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
+
+      <Route path="/" element={<Layout />} errorElement={<ErrorPage message={'Page not found'} />}>
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+
+        < Route element={<PersistLogin />}>
+          <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>
             <Route index element={<Public />} />
             <Route element={<Prefetch />}>
               <Route path="home" element={<DashLayout />}>

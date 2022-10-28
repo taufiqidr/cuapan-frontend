@@ -13,10 +13,14 @@ import useAuth from '../../hooks/useAuth'
 const Login = () => {
   useTitle('Login')
   const { username: curr_user } = useAuth()
+  console.log(useAuth());
   const navigate = useNavigate()
+
   useEffect(() => {
     if (curr_user) {
       navigate('/home');
+    } else {
+      navigate('/login')
     }
   }, [curr_user, navigate])
 
@@ -69,11 +73,7 @@ const Login = () => {
   const errClass = errMsg ? "text-danger text-center" : "offscreen"
 
   if (isLoading) {
-    setTimeout(() => {
-      return <Loading />
-    }, 5000);
-
-
+    return <Loading />
   }
 
 

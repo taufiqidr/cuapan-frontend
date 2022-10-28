@@ -11,9 +11,9 @@ const RightSidebar = () => {
     const showUp = useSelector((state) => state.vote.like)
     const showDown = useSelector((state) => state.vote.dislike)
     return (
-        <div className="flex-column flex-shrink-0 main-bar col-3 ">
+        <div className="flex-column flex-shrink-0 main-bar">
             <div className="d-flex p-1 row">
-                <h4 className="text-center text-light"> Right Sidebar</h4>
+                <h4 className="text-center text-light">Right Sidebar</h4>
             </div>
             <ToastContainer className='row'>
                 <Toast show={showUp} onClose={() => dispatch(closeup())} className="bg-black">

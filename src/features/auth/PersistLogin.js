@@ -7,7 +7,6 @@ import { selectCurrentToken } from "./authSlice"
 import Loading from "../../components/Loading"
 
 const PersistLogin = () => {
-
     const [persist] = usePersist()
     const token = useSelector(selectCurrentToken)
     const effectRan = useRef(false)
@@ -21,7 +20,6 @@ const PersistLogin = () => {
         isError,
         error
     }] = useRefreshMutation()
-
 
     useEffect(() => {
 
@@ -38,15 +36,11 @@ const PersistLogin = () => {
                     console.error(err)
                 }
             }
-
             if (!token && persist) verifyRefreshToken()
         }
-
         return () => effectRan.current = true
-
         // eslint-disable-next-line
     }, [])
-
 
     let content
     if (!persist) { // persist: no

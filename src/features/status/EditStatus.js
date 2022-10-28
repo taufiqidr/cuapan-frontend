@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom'
 import Loading from '../../components/Loading'
+import ErrorPage from '../../components/ErrorPage'
 import useAuth from '../../hooks/useAuth'
 import useTitle from '../../hooks/useTitle'
 import EditStatusView from './EditStatusView'
@@ -18,9 +19,9 @@ const EditStatus = () => {
     if (!status) return <Loading />
 
     if (status.username !== username) {
-        return <p className="errmsg">No access</p>
+        return <ErrorPage message={'No Access'} />
     }
-    const content = <EditStatusView status={status} />
+    const content = <EditStatusView status={status} username={username} />
 
     return content
 }

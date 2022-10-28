@@ -3,9 +3,11 @@ import { PulseLoader } from 'react-spinners'
 
 const Loading = () => {
     return (
-        <div className="d-flex flex-column feed border-start border-end border-secondary col-6 ">
-            <div className="m-auto">
-                <PulseLoader color={"#FFF"} />
+        <div className="container-fluid border-start border-end border-secondary">
+            <div className="container-fluid">
+                <h1 className='text-center alert alert-primary'>
+                    <PulseLoader color={"#fff"} />
+                </h1>
             </div>
         </div>
     )

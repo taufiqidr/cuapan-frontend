@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import BackButton from '../../components/BackButton'
+import Bar from '../../components/Bar'
 import { useUpdateStatusMutation } from '../slice/statusesApiSlice'
 
-const EditStatusView = ({ status }) => {
+const EditStatusView = ({ status, username }) => {
     const [updateStatus, {
         isLoading,
         isSuccess,
     }] = useUpdateStatusMutation()
-
 
     const navigate = useNavigate()
 
@@ -20,10 +19,10 @@ const EditStatusView = ({ status }) => {
         if (isSuccess) {
             setText('')
             setUserId('')
-            navigate('/home')
+            navigate(`/${username}`)
         }
 
-    }, [isSuccess, navigate])
+    }, [isSuccess, username, navigate])
 
     const onTextChanged = e => setText(e.target.value)
 
@@ -36,13 +35,8 @@ const EditStatusView = ({ status }) => {
     }
 
     return (
-        <div className="d-flex flex-column feed border-start border-end border-secondary col-6" >
-            <div className="p-1 border-bottom border-secondary">
-                <h4 className="text-start text-light">
-                    <BackButton />
-                    Edit Status
-                </h4>
-            </div>
+        <div className="container-fluid border-start border-end border-secondary" >
+            <Bar title={'Edit Status'} />
             <div className="mt-2 mb-3 me-2 ms-2 border-bottom border-secondary">
                 <form className='form' onSubmit={e => e.preventDefault()}>
                     <textarea

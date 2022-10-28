@@ -6,8 +6,8 @@ import useTitle from '../../hooks/useTitle'
 import Status from "../status/Status"
 import NewStatus from "../status/NewStatus"
 import Loading from "../../components/Loading"
-import BackButton from "../../components/BackButton"
 import ErrorPage from '../../components/ErrorPage'
+import Bar from '../../components/Bar'
 
 const Profile = () => {
     const { username } = useParams()
@@ -29,7 +29,8 @@ const Profile = () => {
         data: statuses,
         isLoading,
         isSuccess,
-        isError
+        isError,
+        error
     } = useGetStatusesQuery('statusesList', {
         pollingInterval: 15000,
         refetchOnFocus: true,
@@ -39,10 +40,10 @@ const Profile = () => {
     let load
     let content
 
-    if (isLoading && loadingUser) load = <Loading />
+    if (isLoading && loadingUser) content = <Loading />
 
     if (isError && errorUser) {
-        return <ErrorPage />
+        content = <ErrorPage message={error?.data?.message} />
     }
 
     if (isSuccess && successUser) {
@@ -65,13 +66,8 @@ const Profile = () => {
             return <ErrorPage message={'User Not Found'} />
         }
         content = (
-            <div className="container-fluid flex-column feed border-start border-end border-secondary col-6" >
-                <div className="p-1 sticky-top bg-black">
-                    <h4 className="text-start text-light">
-                        <BackButton />
-                        {user.username}
-                    </h4>
-                </div>
+            <div className="container-fluid border-start border-end border-secondary" >
+                <Bar title={user.username} />
                 <div className="container">
                     <div className="row">
                         <div className="col-4"></div>

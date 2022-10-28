@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import useAuth from "../../hooks/useAuth"
 import { useGetUsersQuery } from "../slice/usersApiSlice"
 import { useAddNewStatusMutation } from "../slice/statusesApiSlice"
 
 const NewStatus = () => {
-
+    const { pathname } = useLocation()
     const [addNewStatus, {
         isLoading,
         isSuccess,
@@ -27,9 +27,10 @@ const NewStatus = () => {
     useEffect(() => {
         if (isSuccess) {
             setText('')
-            navigate('/home')
+            if (pathname === 'home') navigate('/home')
+            else if (pathname === username) navigate(`/${username}`)
         }
-    }, [isSuccess, navigate])
+    }, [isSuccess, pathname, username, navigate])
 
     const onTextChanged = e => setText(e.target.value)
 
