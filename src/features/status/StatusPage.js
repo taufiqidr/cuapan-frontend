@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom'
-import Loading from '../../components/Loading'
+import ErrorPage from '../../components/ErrorPage'
 import useTitle from '../../hooks/useTitle'
 import { useGetStatusesQuery } from '../slice/statusesApiSlice'
 
@@ -16,7 +16,7 @@ const StatusPage = () => {
         }),
     })
 
-    if (!status) return <Loading />
+    if (!status) return <ErrorPage message={'Status Not Found'} />
 
     const content = <StatusPageView status={status} />
 

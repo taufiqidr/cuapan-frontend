@@ -7,11 +7,8 @@ const Public = () => {
   const navigate = useNavigate()
   useEffect(() => {
     if (username) {
-      setTimeout(() => {
-        navigate('/home');
-      }, 2000);
+      navigate('/home');
     }
-
   }, [username, navigate])
 
 }

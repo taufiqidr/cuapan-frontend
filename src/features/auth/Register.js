@@ -5,14 +5,20 @@ import PublicHeader from '../../components/PublicHeader'
 import PublicFooter from '../../components/PublicFooter'
 
 import { useRegisterMutation } from "./authApiSlice"
+import useAuth from '../../hooks/useAuth'
 
 const USER_REGEX = /^[A-z]{3,20}$/
 const PWD_REGEX = /^[A-z0-9!@#$%]{4,12}$/
 
 const Register = () => {
     useTitle('Register new user')
-
+    const { username: curr_user } = useAuth()
     const navigate = useNavigate()
+    useEffect(() => {
+        if (curr_user) {
+            navigate('/home');
+        }
+    }, [curr_user, navigate])
 
     const [username, setUsername] = useState('')
     const [validUsername, setValidUsername] = useState(false)

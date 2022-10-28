@@ -8,9 +8,17 @@ import useTitle from '../../hooks/useTitle'
 import PublicHeader from '../../components/PublicHeader'
 import PublicFooter from '../../components/PublicFooter'
 import Loading from '../../components/Loading'
+import useAuth from '../../hooks/useAuth'
 
 const Login = () => {
   useTitle('Login')
+  const { username: curr_user } = useAuth()
+  const navigate = useNavigate()
+  useEffect(() => {
+    if (curr_user) {
+      navigate('/home');
+    }
+  }, [curr_user, navigate])
 
   const userRef = useRef()
   const errRef = useRef()
@@ -19,7 +27,6 @@ const Login = () => {
   const [errMsg, setErrMsg] = useState('')
   const [persist, setPersist] = usePersist()
 
-  const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const [login, { isLoading }] = useLoginMutation()

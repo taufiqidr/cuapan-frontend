@@ -7,10 +7,12 @@ import Status from "../status/Status"
 import NewStatus from "../status/NewStatus"
 import Loading from "../../components/Loading"
 import BackButton from "../../components/BackButton"
+import ErrorPage from '../../components/ErrorPage'
 
 const Profile = () => {
     const { username } = useParams()
     useTitle(`Profile: ${username}`)
+
 
     const {
         data: users,
@@ -40,16 +42,18 @@ const Profile = () => {
     if (isLoading && loadingUser) load = <Loading />
 
     if (isError && errorUser) {
-        load = <Loading />
+        return <ErrorPage />
     }
 
     if (isSuccess && successUser) {
         const { ids, entities } = statuses
+
         let filteredIds = ids.filter(statusId => entities[statusId].username === username)
 
         const tableContent = ids?.length && filteredIds.map(statusId => <Status key={statusId} statusId={statusId} username={statuses.entities[statusId].username} time={statuses.entities[statusId].createdAt} />).sort((a, b) => {
             return new Date(b.props.time).getTime() - new Date(a.props.time).getTime()
         })
+
 
         const { entities: userent } = users
         let arr = []
@@ -57,7 +61,9 @@ const Profile = () => {
             arr.push(userent[key])
         });
         const user = arr.filter(user => user.username === username)[0]
-
+        if (!user) {
+            return <ErrorPage message={'User Not Found'} />
+        }
         content = (
             <div className="container-fluid flex-column feed border-start border-end border-secondary col-6" >
                 <div className="p-1 sticky-top bg-black">
@@ -67,7 +73,6 @@ const Profile = () => {
                     </h4>
                 </div>
                 <div className="container">
-                    <div className="row"></div>
                     <div className="row">
                         <div className="col-4"></div>
                         <div className="col-4">
@@ -75,7 +80,7 @@ const Profile = () => {
                         </div>
                         <div className="col-4"></div>
                     </div>
-                    <div className="row">
+                    <div className="row border-top border-bottom border-secondary mt-2">
                         <div className="row"><strong>{user.name ? user.name : 'name not set'}</strong></div>
                         <div className="row"><small className="text-secondary">@{user.username ? user.username : 'username not set'}</small></div>
                         <div className="row"><p>{user.description ? user.description : 'bio not set'}</p></div>

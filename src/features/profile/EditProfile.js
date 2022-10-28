@@ -1,23 +1,15 @@
-import React, { useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
 import useTitle from '../../hooks/useTitle'
 import EditProfileView from './EditProfileView'
 import { useGetUsersQuery } from '../slice/usersApiSlice'
+import ErrorPage from '../../components/ErrorPage'
 
 const EditProfile = () => {
     const { username } = useAuth()
     const { username: username_params } = useParams()
-    const navigate = useNavigate()
 
     useTitle(`Edit Profile: ${username}`)
-
-    useEffect(() => {
-        if (username !== username_params) {
-            console.log('cant edit other user profile');
-            navigate('/home');
-        }
-    }, [username, username_params, navigate])
 
     const {
         data: users,
@@ -36,7 +28,13 @@ const EditProfile = () => {
         Object.keys(userent).forEach(function (key, index) {
             arr.push(userent[key])
         });
+
         const user = arr.filter(user => user.username === username)[0]
+        if (!user) {
+            return <ErrorPage item={'User'} />
+        } else if (username !== username_params) {
+            return <ErrorPage message={'Cannot edit other user profile'} />
+        }
         content = <EditProfileView user={user} />
     }
 

@@ -19,17 +19,18 @@ import EditStatus from './features/status/EditStatus';
 
 import Profile from './features/profile/Profile';
 import EditProfile from './features/profile/EditProfile';
+import ErrorPage from './components/ErrorPage';
 
 function App() {
   useTitle('Cuapan App')
 
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
-        < Route element={<PersistLogin />}>
-          <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>
+      < Route element={<PersistLogin />}>
+        <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>
+          <Route path="/" element={<Layout />} errorElement={<ErrorPage message={'Page not found'} />}>
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
             <Route index element={<Public />} />
             <Route element={<Prefetch />}>
               <Route path="home" element={<DashLayout />}>
