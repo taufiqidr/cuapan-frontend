@@ -4,12 +4,12 @@ import Sidebar from './Sidebar'
 
 const DashLayout = () => {
   return (
-    <div className="container">
+    <div className="container-fluid">
       <div className='row'>
         <div className="col-3">
           <Sidebar />
         </div>
-        <div className="col-6">
+        <div className="col-6 ">
           <main>
             <Outlet />
           </main>

@@ -72,7 +72,7 @@ const StatusPageView = ({ status }) => {
         )
     }
     return (
-        <div className="container-fluid border-start border-end border-secondary" >
+        <div className="container-fluid border-start border-end border-secondary feed" >
             <div className="p-1 border-bottom border-secondary">
                 <h4 className="text-start text-light">
                     <BackButton />

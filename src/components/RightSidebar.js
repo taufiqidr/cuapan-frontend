@@ -5,16 +5,15 @@ import ToastBody from 'react-bootstrap/ToastBody'
 import { useDispatch, useSelector } from 'react-redux'
 import { closeup, closedown } from '../features/slice/voteSlice'
 import { ToastContainer } from 'react-bootstrap'
+import SearchBar from './SearchBar'
 
 const RightSidebar = () => {
     const dispatch = useDispatch()
     const showUp = useSelector((state) => state.vote.like)
     const showDown = useSelector((state) => state.vote.dislike)
     return (
-        <div className="flex-column flex-shrink-0 main-bar">
-            <div className="d-flex p-1 row">
-                <h4 className="text-center text-light">Right Sidebar</h4>
-            </div>
+        <div className="main-bar container-fluid me-5">
+            <SearchBar />
             <ToastContainer className='row'>
                 <Toast show={showUp} onClose={() => dispatch(closeup())} className="bg-black">
                     <ToastHeader className='bg-secondary '>

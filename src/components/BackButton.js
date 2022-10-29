@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const BackButton = () => {
     const navigate = useNavigate();
     return (
-        <span className='me-2' onClick={() => navigate(-1)}>
+        <span className='me-2 pointer back' onClick={() => navigate(-1)}>
             <ArrowLeft />
         </span>
 

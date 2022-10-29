@@ -15,6 +15,7 @@ const EditProfileView = ({ user }) => {
     const [month, setMonth] = useState(user.dob ? new Date(user.dob).getMonth() : '')
     const [year, setYear] = useState(user.dob ? new Date(user.dob).getFullYear() : '')
     const [dob, setDob] = useState(user.dob ? user.dob : '')
+    // const [validDob, setValidDob] = useState('')
 
     const [updateUser, {
         isLoading,
@@ -29,6 +30,13 @@ const EditProfileView = ({ user }) => {
     useEffect(() => {
         setDob(new Date(Date.UTC(year, month, day)))
     }, [day, month, year])
+
+    // function dateIsValid(date) {
+    //     return date instanceof Date && !isNaN(date);
+    // }
+
+
+
 
     useEffect(() => {
         if (isSuccess) {
@@ -60,9 +68,22 @@ const EditProfileView = ({ user }) => {
     let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     let years = []
 
-    const onDayChanged = e => setDay(e.target.value)
-    const onMonthChanged = e => setMonth(months.indexOf(e.target.value))
-    const onYearChanged = e => setYear(e.target.value)
+    // useEffect(() => {
+    //     let monthss = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    //     setValidDob(dateIsValid(new Date(`${year.toString()}-${monthss[month]}-${day.toString()}`)))
+    //     console.log(new Date(`31 February 1999`))
+    //     console.log((`${year.toString()}-${monthss[month]}-${day.toString()}`));
+    // }, [day, month, year])
+
+    const onDayChanged = e => {
+        setDay(e.target.value)
+    }
+    const onMonthChanged = e => {
+        setMonth(months.indexOf(e.target.value))
+    }
+    const onYearChanged = e => {
+        setYear(e.target.value)
+    }
 
     for (let i = 1; i <= 31; i++) {
         days.push(i)
@@ -168,6 +189,10 @@ const EditProfileView = ({ user }) => {
                             {optionsYear}
                         </select>
                     </div>
+                </div>
+                <div className="mb-3">
+                    {dob === 'Invalid Date' && <p className='alert alert-danger'>Invalid Date</p>}
+                    {/* {console.log(validDob)} */}
                 </div>
                 <hr />
                 <div className="mb-3">

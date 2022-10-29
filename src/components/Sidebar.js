@@ -44,9 +44,8 @@ const Sidebar = () => {
     const logoutButton = (
         <li className='dropdown-item pointer' onClick={sendLogout}>Sign out</li>
     )
-    // const nav_item = "text-light flex-column m-3 nav-link"
     return (
-        <div className="d-flex flex-column flex-shrink-0 main-bar">
+        <div className="d-flex flex-column flex-shrink-0 main-bar ms-5">
             <div className="d-flex p-1 ">
                 <h4>
                     <ArrowLeftRight />
@@ -70,7 +69,7 @@ const Sidebar = () => {
             </ul>
             <div className="dropdown p-3 flex-column">
                 <a href="true" className="d-flex align-items-center text-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="https://github.com/mdo.png" alt="" width="32" height="32" className="rounded-circle me-2" />
+                    <img src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" alt="" width="32" height="32" className="rounded-circle me-2" />
                     <strong>{username}</strong>
                 </a>
                 <ul className="dropdown-menu dropdown-menu-dark text-small shadow">
