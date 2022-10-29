@@ -37,7 +37,7 @@ const Home = () => {
         })
 
         content = (
-            <div className="container-fluid border-start border-end border-secondary" >
+            <div  >
                 <Bar title={'Home'} />
                 <NewStatus />
                 <div className="container-fluid list-group list-group-flush scrollarea">

@@ -1,6 +1,7 @@
+import { isLeapYear } from 'date-fns'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import BackButton from '../../components/BackButton'
+import Bar from '../../components/Bar'
 import { useUpdateUserMutation } from '../slice/usersApiSlice'
 
 const USER_REGEX = /^[A-z]{3,20}$/
@@ -11,11 +12,11 @@ const EditProfileView = ({ user }) => {
     const [validUsername, setValidUsername] = useState(false)
     const [email, setEmail] = useState(user.email ? user.email : '')
     const [name, setName] = useState(user.name ? user.name : '')
+    const [description, setDescription] = useState(user.description ? user.description : '')
     const [day, setDay] = useState(user.dob ? new Date(user.dob).getDate() : '')
     const [month, setMonth] = useState(user.dob ? new Date(user.dob).getMonth() : '')
     const [year, setYear] = useState(user.dob ? new Date(user.dob).getFullYear() : '')
     const [dob, setDob] = useState(user.dob ? user.dob : '')
-    // const [validDob, setValidDob] = useState('')
 
     const [updateUser, {
         isLoading,
@@ -30,13 +31,6 @@ const EditProfileView = ({ user }) => {
     useEffect(() => {
         setDob(new Date(Date.UTC(year, month, day)))
     }, [day, month, year])
-
-    // function dateIsValid(date) {
-    //     return date instanceof Date && !isNaN(date);
-    // }
-
-
-
 
     useEffect(() => {
         if (isSuccess) {
@@ -53,11 +47,12 @@ const EditProfileView = ({ user }) => {
     const onUsernameChanged = e => setUsername(e.target.value)
     const onEmailChanged = e => setEmail(e.target.value)
     const onNameChanged = e => setName(e.target.value)
+    const onDescriptionChanged = e => setDescription(e.target.value)
 
     const onSaveUserClicked = async (e) => {
         e.preventDefault()
         if (canSave) {
-            await updateUser({ id: user.id, username, email, name, dob })
+            await updateUser({ id: user.id, username, email, name, description, dob })
         }
     }
 
@@ -67,13 +62,6 @@ const EditProfileView = ({ user }) => {
     let days = []
     let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     let years = []
-
-    // useEffect(() => {
-    //     let monthss = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    //     setValidDob(dateIsValid(new Date(`${year.toString()}-${monthss[month]}-${day.toString()}`)))
-    //     console.log(new Date(`31 February 1999`))
-    //     console.log((`${year.toString()}-${monthss[month]}-${day.toString()}`));
-    // }, [day, month, year])
 
     const onDayChanged = e => {
         setDay(e.target.value)
@@ -85,7 +73,19 @@ const EditProfileView = ({ user }) => {
         setYear(e.target.value)
     }
 
-    for (let i = 1; i <= 31; i++) {
+    const day_31 = [0, 2, 4, 6, 7, 9, 11]
+    const day_30 = [3, 5, 8, 10]
+    let max_day = 1
+    if (day_31.includes(month)) {
+        max_day = 31
+    }
+    else if (day_30.includes(month)) {
+        max_day = 30
+    } else if (month === 1) {
+        if (isLeapYear(new Date(year))) max_day = 29
+        else max_day = 28
+    }
+    for (let i = 1; i <= max_day; i++) {
         days.push(i)
     }
     for (let i = 1920; i <= 2010; i++) {
@@ -125,13 +125,8 @@ const EditProfileView = ({ user }) => {
     ).reverse()
 
     const content = (
-        <div className="container-fluid border-start border-end border-secondary" >
-            <div className="p-1 border-bottom border-secondary">
-                <h3 className="text-start text-light">
-                    <BackButton />
-                    Edit Profile
-                </h3>
-            </div>
+        <div  >
+            <Bar title={'Edit Profile'} />
             <form onSubmit={onSaveUserClicked}>
                 <div className="mb-3">
                     <input type="hidden" value={id} />
@@ -174,18 +169,30 @@ const EditProfileView = ({ user }) => {
                     />
                 </div>
                 <div className="mb-3">
+                    <label htmlFor="description" className='form-label text-light'>Description:</label>
+                    <textarea
+                        className="textarea form-control bg-black text-light border shadow-none"
+                        rows={6}
+                        placeholder='Write your description'
+                        id="description"
+                        name="description"
+                        value={description}
+                        onChange={onDescriptionChanged}
+                    />
+                </div>
+                <div className="mb-3">
                     <label htmlFor="dob" className='form-label text-light'>Date of birth:</label>
                     <div className="d-flex">
                         <select name="day" id="day" value={day} onChange={onDayChanged} className="form-select flex-column me-2 p-1">
-                            <option>Day</option>
+                            <option disabled className='text-muted'>Day</option>
                             {optionsDay}
                         </select>
                         <select name="month" id="month" value={months[month]} onChange={onMonthChanged} className="form-select flex-column me-2">
-                            <option>Month</option>
+                            <option disabled className='text-muted'>Month</option>
                             {optionsMonth}
                         </select>
                         <select name="year" id="year" value={year} onChange={onYearChanged} className="form-select flex-column">
-                            <option>Year</option>
+                            <option disabled className='text-muted'>Year</option>
                             {optionsYear}
                         </select>
                     </div>
@@ -201,7 +208,6 @@ const EditProfileView = ({ user }) => {
             </form>
         </div>
     )
-
     return content
 }
 

@@ -1,5 +1,4 @@
 import { useRef, useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setCredentials } from './authSlice'
 import { useLoginMutation } from './authApiSlice'
@@ -7,23 +6,12 @@ import usePersist from '../../hooks/usePersist'
 import useTitle from '../../hooks/useTitle'
 import PublicHeader from '../../components/PublicHeader'
 import PublicFooter from '../../components/PublicFooter'
-import Loading from '../../components/Loading'
-import useAuth from '../../hooks/useAuth'
+import { useNavigate } from 'react-router-dom'
+import PublicLoading from '../../components/PublicLoading'
 
 const Login = () => {
   useTitle('Login')
-  const { username: curr_user } = useAuth()
-  console.log(useAuth());
   const navigate = useNavigate()
-
-  useEffect(() => {
-    if (curr_user) {
-      navigate('/home');
-    } else {
-      navigate('/login')
-    }
-  }, [curr_user, navigate])
-
   const userRef = useRef()
   const errRef = useRef()
   const [username, setUsername] = useState('')
@@ -70,17 +58,13 @@ const Login = () => {
   const handlePwdInput = (e) => setPassword(e.target.value)
   const handleToggle = () => setPersist(prev => !prev)
 
-  const errClass = errMsg ? "text-danger text-center" : "offscreen"
-
-  if (isLoading) {
-    return <Loading />
-  }
-
+  const errClass = errMsg ? "alert alert-danger text-center" : "offscreen"
 
   const content = (
     <>
       <PublicHeader />
       <main className="form-signin m-auto mb-auto mt-auto">
+        {isLoading && <PublicLoading />}
         <p ref={errRef} className={errClass} aria-live="assertive">{errMsg}</p>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">

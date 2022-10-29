@@ -13,7 +13,6 @@ const Profile = () => {
     const { username } = useParams()
     useTitle(`Profile: ${username}`)
 
-
     const {
         data: users,
         isLoading: loadingUser,
@@ -55,7 +54,6 @@ const Profile = () => {
             return new Date(b.props.time).getTime() - new Date(a.props.time).getTime()
         })
 
-
         const { entities: userent } = users
         let arr = []
         Object.keys(userent).forEach(function (key, index) {
@@ -66,7 +64,7 @@ const Profile = () => {
             return <ErrorPage message={'User Not Found'} />
         }
         content = (
-            <div className="container-fluid border-start border-end border-secondary" >
+            <div  >
                 <Bar title={user.username} />
                 <div className="container">
                     <div className="row">

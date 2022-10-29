@@ -3,22 +3,17 @@ import { useNavigate } from 'react-router-dom'
 import useTitle from '../../hooks/useTitle'
 import PublicHeader from '../../components/PublicHeader'
 import PublicFooter from '../../components/PublicFooter'
-
 import { useRegisterMutation } from "./authApiSlice"
-import useAuth from '../../hooks/useAuth'
+import PublicLoading from '../../components/PublicLoading'
+import { isLeapYear } from 'date-fns'
 
 const USER_REGEX = /^[A-z]{3,20}$/
 const PWD_REGEX = /^[A-z0-9!@#$%]{4,12}$/
 
 const Register = () => {
     useTitle('Register new user')
-    const { username: curr_user } = useAuth()
+
     const navigate = useNavigate()
-    useEffect(() => {
-        if (curr_user) {
-            navigate('/home');
-        }
-    }, [curr_user, navigate])
 
     const [username, setUsername] = useState('')
     const [validUsername, setValidUsername] = useState(false)
@@ -31,7 +26,6 @@ const Register = () => {
     const [year, setYear] = useState('')
     const [dob, setDob] = useState('')
 
-    // `${day}-${month}-${year}`
     const [register, {
         isLoading,
         isSuccess,
@@ -69,8 +63,6 @@ const Register = () => {
     const onPasswordChanged = e => setPassword(e.target.value)
     const onNameChanged = e => setName(e.target.value)
 
-
-
     const errClass = isError ? "text-danger text-center" : "offscreen"
 
     const onSaveUserClicked = async (e) => {
@@ -78,6 +70,10 @@ const Register = () => {
         if (canSave) {
             await register({ username, email, password, name, dob })
         }
+    }
+
+    if (isLoading) {
+        return <PublicLoading />
     }
 
     const canSave = [validUsername, validPassword, email, name, dob].every(Boolean) && !isLoading
@@ -90,8 +86,19 @@ const Register = () => {
     const onDayChanged = e => setDay(e.target.value)
     const onMonthChanged = e => setMonth(months.indexOf(e.target.value))
     const onYearChanged = e => setYear(e.target.value)
-
-    for (let i = 1; i <= 31; i++) {
+    const day_31 = [0, 2, 4, 6, 7, 9, 11]
+    const day_30 = [3, 5, 8, 10]
+    let max_day = 1
+    if (day_31.includes(month)) {
+        max_day = 31
+    }
+    else if (day_30.includes(month)) {
+        max_day = 30
+    } else if (month === 1) {
+        if (isLeapYear(new Date(year))) max_day = 29
+        else max_day = 28
+    }
+    for (let i = 1; i <= max_day; i++) {
         days.push(i)
     }
     for (let i = 1920; i <= 2010; i++) {
@@ -134,6 +141,7 @@ const Register = () => {
         <>
             <PublicHeader />
             <main className="form-signin m-auto">
+                {isLoading && <PublicLoading />}
                 <p className={errClass}>{error?.data?.message}</p>
                 <div className="mb-3">
                     <h1 className="text-light">Register</h1>
@@ -195,15 +203,15 @@ const Register = () => {
                         <label htmlFor="dob" className='form-label text-light'>Date of birth:</label>
                         <div className="d-flex">
                             <select name="day" id="day" value={day} onChange={onDayChanged} className="form-select flex-column me-2 p-1">
-                                <option>Day</option>
+                                <option disabled className='text-muted'>Day</option>
                                 {optionsDay}
                             </select>
                             <select name="month" id="month" value={month} onChange={onMonthChanged} className="form-select flex-column me-2">
-                                <option>Month</option>
+                                <option disabled className='text-muted'>Month</option>
                                 {optionsMonth}
                             </select>
                             <select name="year" id="year" value={year} onChange={onYearChanged} className="form-select flex-column">
-                                <option>Year</option>
+                                <option disabled className='text-muted'>Year</option>
                                 {optionsYear}
                             </select>
                         </div>

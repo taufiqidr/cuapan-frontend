@@ -35,7 +35,7 @@ const EditStatusView = ({ status, username }) => {
     }
 
     return (
-        <div className="container-fluid border-start border-end border-secondary" >
+        <div  >
             <Bar title={'Edit Status'} />
             <div className="mt-2 mb-3 me-2 ms-2 border-bottom border-secondary">
                 <form className='form' onSubmit={e => e.preventDefault()}>

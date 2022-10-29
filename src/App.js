@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
 import Public from './components/Public'
-import DashLayout from './components/DashLayout'
+import MainLayout from './components/MainLayout'
 
 import Login from './features/auth/Login';
 import Register from './features/auth/Register';
@@ -13,13 +13,13 @@ import { ROLES } from './config/roles'
 import useTitle from './hooks/useTitle';
 
 import Home from './features/home/Home';
+import SearchResult from './features/home/SearchResult';
 
 import StatusPage from './features/status/StatusPage';
 import EditStatus from './features/status/EditStatus';
 
 import Profile from './features/profile/Profile';
 import EditProfile from './features/profile/EditProfile';
-import ErrorPage from './components/ErrorPage';
 
 function App() {
   useTitle('Cuapan App')
@@ -27,7 +27,7 @@ function App() {
   return (
     <Routes>
 
-      <Route path="/" element={<Layout />} errorElement={<ErrorPage message={'Page not found'} />}>
+      <Route path="/" element={<Layout />}>
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
 
@@ -35,10 +35,13 @@ function App() {
           <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>
             <Route index element={<Public />} />
             <Route element={<Prefetch />}>
-              <Route path="home" element={<DashLayout />}>
+              <Route path="home" element={<MainLayout />}>
                 <Route index element={<Home />} />
               </Route>
-              <Route path=":username" element={<DashLayout />}>
+              <Route path="search/:keyword" element={<MainLayout />}>
+                <Route index element={<SearchResult />} />
+              </Route>
+              <Route path=":username" element={<MainLayout />}>
                 <Route index element={<Profile />} />
                 <Route path="status">
                   <Route index element={<Profile />} />
